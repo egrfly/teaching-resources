@@ -1,0 +1,40 @@
+@import './style/variables.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import './style/codemirror-customisation.scss';
+@import './style/loader.scss';
+@import './style/resource-pages.scss';
+@import './style/reveal-customisation.scss';
+@import './style/vscode-dark.scss';
+
+html, body, #root {
+  height: 100%;
+  background: $dark;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.btn {
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+[hidden] {
+  display: inherit !important;
+}
+
+@include media-breakpoint-down(md) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  html {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,52 @@
+@import "~@fontsource/fira-mono";
+
+.CodeMirror {
+  height: unset;
+  padding: 1rem;
+  border: 1px solid #6c757d;
+  border-radius: 0.3rem;
+  font-family: "Fira Mono", monospace;
+
+  &-lines {
+    font-size: 1.5rem;
+  }
+
+  &-line {
+    box-shadow: none !important;
+  }
+}
+
+.dual-code-text-area > .code-mirror-block {
+  width: 45% !important;
+}
+
+.code-mirror-block {
+  .table-spacer {
+    height: 160px;
+  }
+
+  .table-wrapper {
+    max-height: 160px;
+    overflow: auto;
+  }
+
+  .table {
+    font-size: 1.25rem;
+    white-space: nowrap;
+
+    tbody {
+      background-color: rgba(255, 255, 255, .05);
+    }
+
+    td {
+      border-color: #454d55;
+    }
+
+    th {
+      background-color: #343a40;
+      position: sticky;
+      top: 0;
+      border: none;
+    }
+  }
+}
