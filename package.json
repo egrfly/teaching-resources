@@ -2,7 +2,6 @@
   "name": "resources",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://egrfly.github.io/teaching-resources/",
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.8",
     "@testing-library/jest-dom": "^5.16.4",
