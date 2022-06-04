@@ -4,12 +4,12 @@ import { runSqlCode } from '../data/codeManagement'
 import { LanguageContext, DbContext } from './Presentation'
 
 interface CodeTextAreaProps {
-  exampleCode: string,
   mode: "syntax" | "demo" | "exercise",
+  exampleCode: string,
   language?: string,
 }
 
-const CodeTextArea = ({exampleCode, mode, language}: CodeTextAreaProps) => {
+const CodeTextArea = ({mode, exampleCode, language}: CodeTextAreaProps) => {
   const snippet = useRef<HTMLTextAreaElement | null>(null)
 
   const languageFromContext = useContext(LanguageContext)
@@ -27,7 +27,10 @@ const CodeTextArea = ({exampleCode, mode, language}: CodeTextAreaProps) => {
       theme: "vscode-dark",
     })
     setImmediate(() => {
-      editorFromTextArea?.refresh()
+      editorFromTextArea.refresh()
+    })
+    document.addEventListener("click", () => {
+      editorFromTextArea.refresh()
     })
     setEditor(editorFromTextArea)
   }, [editorLanguage])
@@ -57,8 +60,8 @@ const CodeTextArea = ({exampleCode, mode, language}: CodeTextAreaProps) => {
       {mode !== "syntax" && <>
         <div className="btn-group w-100 my-3" role="group" aria-label="Basic example">
           <button className="btn btn-dark btn-lg border-secondary w-100" onClick={runCode}>Run</button>
-          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={clearOutput}>Clear output</button>
-          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={showExampleCode}>{mode === "exercise" ? "Show answer" : "Reset"}</button>
+          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={clearOutput}>Clear</button>
+          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={showExampleCode}>{mode === "exercise" ? "Answer" : "Reset"}</button>
         </div>
         <div className="table-spacer">
           <div className={`table-wrapper rounded ${(rows || error) && 'border'} border-secondary`}>

@@ -20,6 +20,7 @@ const Presentation = ({language, children}: PresentationProps) => {
       slideNumber: true,
       center: true,
       hash: true,
+      hashOneBasedIndex: true,
       minScale: 1,
       maxScale: 1,
     })

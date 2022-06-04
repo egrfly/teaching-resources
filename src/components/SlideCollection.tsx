@@ -5,13 +5,13 @@ interface PresentationProps {
   children?: ReactNode,
 }
 
-const Slide = ({title, children}: PresentationProps) => {
+const SlideCollection = ({title, children}: PresentationProps) => {
   return (
     <section>
-      <h2 className="pt-5">{title}</h2>
+      <h4>{title}</h4>
       {children}
     </section>
   )
 }
 
-export default Slide
+export default SlideCollection

@@ -1,16 +1,31 @@
 .reveal {
-  font-size: 36px;
+  font-size: 30px;
 
   .slides {
     width: 95% !important;
+    height: 95vh !important;
   }
 
   .slide-number {
-    right: 42px;
-    bottom: 32px;
-    width: 36px;
+    bottom: 40px;
+    right: 40px;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
     background: none;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
+    color: #42affa;
+
+    a {
+      display: inline-flex;
+    }
+
+    &-delimiter {
+      margin: 0;
+    }
   }
 
   code {
@@ -20,12 +35,12 @@
 
 @include media-breakpoint-down(md) {
   .reveal {
-    font-size: 30px;
+    font-size: 24px;
   }
 }
 
 @include media-breakpoint-down(sm) {
   .reveal {
-    font-size: 24px;
+    font-size: 18px;
   }
 }

@@ -76,19 +76,65 @@ export const comparisonOperatorExercises: Exercise[] = [
   },
   {
     question: "Select all items from the products table that cost at least £1.50",
-    solution: "SELECT *\n  FROM products AS p\n WHERE p.price > 1.50;",
+    solution: "SELECT *\n  FROM products AS p\n WHERE p.price >= 1.50;",
   },
   {
-    question: "Select all items from the products table apart from broccoli",
+    question: "Use the != operator to select all items from the products table apart from broccoli",
     solution: "SELECT *\n  FROM products AS p\n WHERE p.name != 'Broccoli';",
   },
+  {
+    question: "Use the <> operator to select all items from the products table apart from those from the fruit and veg department",
+    solution: "SELECT *\n  FROM products AS p\n WHERE p.department <> 'Fruit and veg';",
+  },
+]
+
+export const furtherComparisonOperatorExercises: Exercise[] = [
   {
     question: "Select all items from the products table that cost between £0.70 and £1.70",
     solution: "SELECT *\n  FROM products AS p\n WHERE p.price BETWEEN 0.70 AND 1.70;",
   },
   {
-    question: "Select everything from the products table that belongs in the drinks or snacks departments",
+    question: "Select all items from the products table that belong in the drinks or snacks departments",
     solution: "SELECT *\n  FROM products AS p\n WHERE p.department IN ('Drinks', 'Snacks');",
+  },
+  {
+    question: "Select all items from the products table that are out of stock (stock set to 0)",
+    solution: "SELECT *\n  FROM products AS p\n WHERE p.stock = 0;",
+  },
+  {
+    question: "Select all items from the products table whose stock is not known (stock set to NULL)",
+    solution: "SELECT *\n  FROM products AS p\n WHERE p.stock IS NULL;",
+  },
+  {
+    question: "Select everyone from the students table whose sponsor is either Moneybox or Experian",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.sponsor IN ('Moneybox', 'Experian');",
+  },
+  {
+    question: "Select everyone from the students table whose name comes between Hannah and Patricia alphabetically",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name BETWEEN 'Hannah' AND 'Patricia';",
+  },
+]
+
+export const patternMatchingExercises: Exercise[] = [
+  {
+    question: "Select everyone from the students table whose name begins with an L",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name LIKE 'L%';",
+  },
+  {
+    question: "Select everyone from the students table whose name ends with an A",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name LIKE '%a';",
+  },
+  {
+    question: "Select everyone from the students table whose name begins with an L and ends with an A",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name LIKE 'L%a';",
+  },
+  {
+    question: "Select everyone from the students table whose name begins with an L, ends with an A, and is exactly 4 letters long",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name LIKE 'L__a';",
+  },
+  {
+    question: "Select everyone from the students table whose name has A as its second letter",
+    solution: "SELECT *\n  FROM students AS s\n WHERE s.name LIKE '_a%';",
   },
 ]
 
@@ -100,6 +146,10 @@ export const logicalOperatorExercises: Exercise[] = [
   {
     question: "Select all products that whose price isn't between £1.00 and £1.50",
     solution: "SELECT *\n  FROM products AS p\n WHERE p.price NOT BETWEEN 1.00 AND 1.50;",
+  },
+  {
+    question: "Select all products whose stock is known",
+    solution: "SELECT *\n  FROM products AS p\n WHERE p.stock IS NOT NULL;",
   },
   {
     question: "Find the names and sponsors of all students who completed a Software course or were sponsored by Swiss Re",
@@ -200,7 +250,7 @@ export const deletionExercises: Exercise[] = [
 export const creationExercises: Exercise[] = [
   {
     question: "Create a table called projects with the following columns: group_name (VARCHAR), group_size (INTEGER), stream (VARCHAR) and description (VARCHAR)",
-    solution: "CREATE TABLE projects (\n  group_name  VARCHAR(50),\n  group_size  INTEGER,\n  stream      VARCHAR(20),\n  description VARCHAR(255)\n);"
+    solution: "CREATE TABLE projects (\n  group_name  VARCHAR(50),\n  group_size  INTEGER,\n  stream      VARCHAR(20),\n  description VARCHAR(255)\n);",
   },
   {
     question: "Create a table called classes with the following columns: stream_and_number, lead_instructor_1, lead_instructor_2, assistant_instructor (all VARCHAR), number_of_students (INTEGER)",

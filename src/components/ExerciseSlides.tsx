@@ -16,10 +16,10 @@ const ExerciseSlides = ({title, ordinal, exercises}: ExerciseSet) => {
           <p>{exercise.question}</p>
           {exercise.secondaryCode
             ? <div className="d-flex dual-code-text-area">
-                <CodeTextArea exampleCode={exercise.solution} mode="exercise" />
-                <CodeTextArea exampleCode={exercise.secondaryCode} mode="demo" />
+                <CodeTextArea mode="exercise" exampleCode={exercise.solution} />
+                <CodeTextArea mode="demo" exampleCode={exercise.secondaryCode} />
               </div>
-            : <CodeTextArea exampleCode={exercise.solution} mode="exercise" />}
+            : <CodeTextArea mode="exercise" exampleCode={exercise.solution} />}
         </Slide>
       )}
     </>
