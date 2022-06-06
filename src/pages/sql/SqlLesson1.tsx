@@ -197,6 +197,10 @@ const SqlLesson1 = () => {
                 <td>Used to specify which table we want to work with</td>
               </tr>
               <tr>
+                <td><code>AS</code></td>
+                <td>Used to specify an alias for a table or column</td>
+              </tr>
+              <tr>
                 <td><code>WHERE</code></td>
                 <td>Used to determine which rows to select</td>
               </tr>
@@ -355,6 +359,10 @@ const SqlLesson1 = () => {
               <tr>
                 <td><code>FROM</code></td>
                 <td>Used to specify which table we want to work with</td>
+              </tr>
+              <tr>
+                <td><code>AS</code></td>
+                <td>Used to specify an alias for a table or column</td>
               </tr>
               <tr>
                 <td><code>WHERE</code></td>

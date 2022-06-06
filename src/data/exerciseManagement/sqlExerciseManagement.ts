@@ -304,3 +304,90 @@ export const tableDeletionExercises: Exercise[] = [
     solution: "DROP TABLE marks;",
   },
 ]
+
+export const stringFunctionExercises: Exercise[] = [
+  {
+    question: "Select the first 5 letters of each name from the students table",
+    solution: "SELECT SUBSTR(s.name, 1, 5) AS 'First 5 letters of name'\n  FROM students AS s;",
+  },
+  {
+    question: "Select the names and sponsors in uppercase from the students table",
+    solution: "SELECT UPPER(s.name) AS 'NAME',\n       UPPER(s.sponsor) AS 'SPONSOR'\n  FROM students AS s;",
+  },
+  {
+    question: "Select the distinct streams from the students table with the word 'Stream' added to the end",
+    solution: "-- SQLite code - won't work in MySQL\nSELECT DISTINCT s.stream || ' Stream'\n           FROM students AS s;",
+    secondaryCode: "-- Alternative MySQL code - won't work in SQLite\nSELECT DISTINCT CONCAT(s.stream, ' Stream')\n           FROM students AS s;"
+  },
+  {
+    question: "Select the distinct cohorts (season-year combinations) in a single column of the form 'Autumn, 2022'",
+    solution: "-- SQLite code - won't work in MySQL\nSELECT DISTINCT s.season || ', ' || s.year\n           FROM students AS s;",
+    secondaryCode: "-- Alternative MySQL code - won't work in SQLite\nSELECT DISTINCT CONCAT(s.season, ', ', s.year)\n           FROM students AS s;"
+  },
+]
+
+export const numericFunctionExercises: Exercise[] = [
+  {
+    question: "Select the price of each item in the products table rounded to the nearest 10p",
+    solution: "SELECT ROUND(p.price, 1)\n  FROM products AS p;",
+  },
+  {
+    question: "(Difficult.) A nearby store has exactly 20 of everything in stock. For each item in the products table, find out the difference between the current stock and the stock of that item in the nearby store. For example, if an item has 35 in stock, the difference would be 15, and if an item has only 2 in stock, the difference would be 18",
+    solution: "SELECT p.name,\n       ABS(p.stock - 20) AS 'Stock difference'\n  FROM products AS p;\n\n-- Also valid\n-- SELECT p.name\n--        ABS(20 - p.stock) AS 'Stock difference'\n--   FROM products AS p;",
+  },
+  {
+    question: "(Difficult.) An employee wants to order the stock of each item into a square grid in its place on the shelf. For each item, work out the side length of the square grid of its stock, to the nearest whole number. For example, if an item has 100 in stock, it should be arranged on the shelf in a 10-by-10 grid, and the side length would be 10",
+    solution: "SELECT ROUND(SQRT(p.stock))\n  FROM products AS p",
+  },
+]
+
+export const setFunctionExercises: Exercise[] = [
+  {
+    question: "Select the number of students who followed the Full Stack stream",
+    solution: "SELECT COUNT(*)\n  FROM students AS s\n WHERE s.stream = 'Full Stack';",
+  },
+  {
+    question: "Select the number of students who completed a course in Summer 2021",
+    solution: "SELECT COUNT(*)\n  FROM students AS s\n WHERE s.season = 'Summer' AND s.year = 2021;",
+  },
+  {
+    question: "Select the average length of the names in the students table",
+    solution: "SELECT AVG(LENGTH(s.name))\n  FROM students AS s;",
+  },
+  {
+    question: "Select the total length of all the names in the students table",
+    solution: "Select SUM(LENGTH(s.name))\n  FROM students AS s;",
+  },
+  {
+    question: "Find out the number of students in the students table whose sponsor is known",
+    solution: "SELECT COUNT(s.sponsor)\n  FROM students AS s;",
+    secondaryCode: "-- Alternative\nSELECT COUNT(*)\n  FROM students AS s\n WHERE s.sponsor IS NOT NULL;"
+  },
+  {
+    question: "Select all distinct seasons covered by students table in a single string, separated by commas",
+    solution: "SELECT GROUP_CONCAT(DISTINCT s.season)\n  FROM students AS s;",
+  },
+]
+
+export const groupByExercises: Exercise[] = [
+  {
+    question: "Find the number of students sponsored by each sponsor for each stream",
+    solution: "  SELECT s.sponsor,\n         s.stream,\n         COUNT(*)\n    FROM students AS s\nGROUP BY s.sponsor,\n         s.stream;",
+  },
+  {
+    question: "Find the number of distinct sponsors for each year",
+    solution: "  SELECT s.year,\n         COUNT(DISTINCT s.sponsor)\n    FROM students AS s\nGROUP BY s.year;",
+  },
+  {
+    question: "Find the length of the longest name of the students for each sponsor",
+    solution: "  SELECT s.sponsor,\n         MAX(LENGTH(s.name))\n    FROM students AS s\nGROUP BY s.sponsor;",
+  },
+  {
+    question: "Find the total stock for each department in the products table",
+    solution: "  SELECT p.department,\n         SUM(p.stock)\n    FROM products AS p\nGROUP BY p.department;",
+  },
+  {
+    question: "Find the average price of the products in each department of the products table",
+    solution: "  SELECT p.department,\n         AVG(p.price)\n    FROM products AS p\nGROUP BY p.department;",
+  },
+]
