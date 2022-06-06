@@ -168,36 +168,36 @@ export const logicalOperatorExercises: Exercise[] = [
 export const singleInsertionExercises: Exercise[] = [
   {
     question: "Insert Mariyum, a Dunelm-sponsored Full Stack student from spring 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Mariyum', 'Dunelm', 'Full Stack', 'Spring', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Mariyum', 'Dunelm', 'Full Stack', 'Spring', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Insert Anood, a CFG-sponsored Software student from spring 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Anood', 'CFG', 'Software', 'Spring', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Anood', 'CFG', 'Software', 'Spring', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Insert Nikita, an Experian-sponsored Software student from summer 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Nikita', 'Experian', 'Software', 'Summer', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Nikita', 'Experian', 'Software', 'Summer', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
 ]
 
 export const bulkInsertionExercises: Exercise[] = [
   {
     question: "Insert Ayan and Ioana, two Ford-sponsored Full Stack students from spring 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Ayan', 'Ford', 'Full Stack', 'Spring', 2022),\n('Ioana', 'Ford', 'Full Stack', 'Spring', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Ayan', 'Ford', 'Full Stack', 'Spring', 2022),\n       ('Ioana', 'Ford', 'Full Stack', 'Spring', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Insert Kyla, Lucy and Janet, three Moneybox-sponsored Software students from summer 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Kyla', 'Moneybox', 'Software', 'Summer', 2022),\n('Lucy', 'Moneybox', 'Software', 'Summer', 2022),\n('Janet', 'Moneybox', 'Software', 'Summer', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Kyla', 'Moneybox', 'Software', 'Summer', 2022),\n       ('Lucy', 'Moneybox', 'Software', 'Summer', 2022),\n       ('Janet', 'Moneybox', 'Software', 'Summer', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Insert Akarsha, Rachel, Nazo and Olivia, four IPO-sponsored Software students from summer 2022, into the students table. Try a SELECT statement afterwards to see if it worked",
-    solution: "INSERT INTO students\n(name, sponsor, stream, season, year)\nVALUES\n('Akarsha', 'IPO', 'Software', 'Summer', 2022),\n('Rachel', 'IPO', 'Software', 'Summer', 2022),\n('Nazo', 'IPO', 'Software', 'Summer', 2022),\n('Olivia', 'IPO', 'Software', 'Summer', 2022);",
-    secondaryCode: "SELECT * FROM students;",
+    solution: "INSERT\n  INTO students\n       (name, sponsor, stream, season, year)\nVALUES ('Akarsha', 'IPO', 'Software', 'Summer', 2022),\n       ('Rachel', 'IPO', 'Software', 'Summer', 2022),\n       ('Nazo', 'IPO', 'Software', 'Summer', 2022),\n       ('Olivia', 'IPO', 'Software', 'Summer', 2022);",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
 ]
 
@@ -205,22 +205,22 @@ export const updateExercises: Exercise[] = [
   {
     question: "Change all the autumn students to be winter students instead",
     solution: "UPDATE students\n   SET season = 'Winter'\n WHERE season = 'Autumn';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Change all the Slalom-sponsored students to be sponsored by Slalom Build instead",
     solution: "UPDATE students\n   SET sponsor = 'Slalom Build'\n WHERE sponsor = 'Slalom';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Change all the summer 2021 students to be sponsored by CFG",
     solution: "UPDATE students\n   SET sponsor = 'CFG'\n WHERE season = 'Summer'\n   AND year = 2021;",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Change Emma, a spring Full Stack student, to be a summer Software student sponsored by CFG",
     solution: "UPDATE students\n   SET season = 'Summer',\n       stream = 'Software',\n       sponsor = 'CFG'\n WHERE name = 'Emma'\n   AND season = 'Spring'\n   AND stream = 'Full Stack';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
 ]
 
@@ -228,36 +228,79 @@ export const deletionExercises: Exercise[] = [
   {
     question: "Remove Georgie from the students table",
     solution: "DELETE\n  FROM students\n WHERE name = 'Georgie';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Remove Ellie, sponsored by Dunelm, from the students table",
     solution: "DELETE\n  FROM students\n WHERE name = 'Ellie'\n   AND sponsor = 'Dunelm';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Remove everyone sponsored by Deloitte from the students table",
     solution: "DELETE\n  FROM students\n WHERE sponsor = 'Deloitte';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
   {
     question: "Remove everyone from the summer 2021 cohort from the students table",
     solution: "DELETE\n  FROM students\n WHERE season = 'Summer'\n   AND year = '2021';",
-    secondaryCode: "SELECT * FROM students;",
+    secondaryCode: "SELECT *\n  FROM students;",
   },
 ]
 
-export const creationExercises: Exercise[] = [
+export const tableCreationExercises: Exercise[] = [
   {
-    question: "Create a table called projects with the following columns: group_name (VARCHAR), group_size (INTEGER), stream (VARCHAR) and description (VARCHAR)",
+    question: "Create a table called projects with the following columns: group_name (VARCHAR), group_size (INTEGER), stream and description (both VARCHAR)",
     solution: "CREATE TABLE projects (\n  group_name  VARCHAR(50),\n  group_size  INTEGER,\n  stream      VARCHAR(20),\n  description VARCHAR(255)\n);",
   },
   {
-    question: "Create a table called classes with the following columns: stream_and_number, lead_instructor_1, lead_instructor_2, assistant_instructor (all VARCHAR), number_of_students (INTEGER)",
+    question: "Create a table called classes with the following columns: stream_and_number, lead_instructor_1, lead_instructor_2 and assistant_instructor (all VARCHAR)",
     solution: "CREATE TABLE classes (\n  stream_and_number    VARCHAR(20),\n  lead_instructor_1    VARCHAR(50),\n  lead_instructor_2    VARCHAR(50),\n  assistant_instructor VARCHAR(50),\n  number_of_students   INTEGER\n);",
   },
   {
-    question: "Create a table called marks with the following columns: student_name (VARCHAR), assessment_1, theory_1, assessment_2, theory_2, homework, assessment_3 and project (all INTEGER)",
-    solution: "CREATE TABLE marks (\n  student_name VARCHAR(50),\n  assessment_1 INTEGER,\n  theory_1     INTEGER,\n  assessment_2 INTEGER,\n  theory_2     INTEGER,\n  homework     INTEGER,\n  assessment_3 INTEGER,\n  project      INTEGER\n);",
+    question: "Create a table called marks with the following columns: student_name (VARCHAR), assessment_1, assessment_2, assessment_3 and project (all INTEGER)",
+    solution: "CREATE TABLE marks (\n  student_name VARCHAR(50),\n  assessment_1 INTEGER,\n  assessment_2 INTEGER,\n  assessment_3 INTEGER,\n  project      INTEGER\n);",
+  },
+]
+
+export const tableAlterationExercises: Exercise[] = [
+  {
+    question: "Rename the students table to graduates",
+    solution: "ALTER TABLE students\n  RENAME TO graduates;",
+    secondaryCode: "SELECT *\n  FROM graduates;",
+  },
+  {
+    question: "Rename the graduates table back to students",
+    solution: "ALTER TABLE graduates\n  RENAME TO students;",
+    secondaryCode: "SELECT *\n  FROM students;",
+  },
+  {
+    question: "Add a new column to the students table called final_mark",
+    solution: "ALTER TABLE students\n ADD COLUMN final_mark;",
+    secondaryCode: "SELECT *\n  FROM students;",
+  },
+  {
+    question: "Rename the stream column from the students table to be called subject instead",
+    solution: "  ALTER TABLE students\nRENAME COLUMN stream TO subject;",
+    secondaryCode: "SELECT *\n  FROM students;",
+  },
+  {
+    question: "Drop the sponsor column from the students table",
+    solution: "ALTER TABLE students\nDROP COLUMN sponsor;",
+    secondaryCode: "SELECT *\n  FROM students;",
+  },
+]
+
+export const tableDeletionExercises: Exercise[] = [
+  {
+    question: "Drop the table called projects you created in a previous exercise",
+    solution: "DROP TABLE projects;",
+  },
+  {
+    question: "Drop the table called classes you created in a previous exercise",
+    solution: "DROP TABLE classes;",
+  },
+  {
+    question: "Drop the table called marks you created in a previous exercise",
+    solution: "DROP TABLE marks;",
   },
 ]

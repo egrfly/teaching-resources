@@ -29,17 +29,17 @@ export const jsResources: Resource[] = [
 export const sqlResources: Resource[] = [
   {
     title: 'Lesson 1',
-    description: 'Learn how to write queries to select data',
+    description: 'Learn how to write queries to view data',
     url: 'lesson-1',
   },
   {
     title: 'Lesson 2',
-    description: 'Learn how to write queries to insert, update and delete data',
+    description: 'Learn how to write queries to add, edit and remove data',
     url: 'lesson-2',
   },
   {
     title: 'Lesson 3',
-    description: 'Learn how to write queries to order and group data',
+    description: 'Learn how to write queries to group and order data',
     url: 'lesson-3',
   },
   {

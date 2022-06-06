@@ -99,7 +99,7 @@ const SqlLesson1 = () => {
           <CodeTextArea mode="demo" exampleCode={`SELECT s.name,\n       s.sponsor\n  FROM students AS s;`} />
         </Slide>
         <Slide title="Column name aliasing">
-          <p>You can give the columns aliases as well to create a clearer results set.</p>
+          <p>You can give the columns aliases as well to create a clearer results set</p>
           <CodeTextArea mode="syntax" exampleCode={`SELECT t.column_name AS 'Column Name',\n       t.another_column_name AS 'Another Column Name'\n  FROM table_name AS t;`} />
         </Slide>
         <Slide title="Example">
@@ -112,9 +112,7 @@ const SqlLesson1 = () => {
       <SlideCollection title="Distinct selection">
         <Slide title="The DISTINCT keyword">
           <p>If you want to avoid duplication, you can use the <code>DISTINCT</code> keyword.</p>
-          <ul>
-            <li>If you use it across several columns, whole combinations of column values have to match for distinct to collapse them into one row</li>
-          </ul>
+          <p>If you use it across several columns, whole combinations of column values have to match for distinct to collapse them into one row.</p>
           <CodeTextArea mode="syntax" exampleCode={`SELECT DISTINCT t.column_name,\n                t.another_column_name\n           FROM table_name AS t;`} />
         </Slide>
         <Slide title="Example without DISTINCT">
@@ -303,9 +301,7 @@ const SqlLesson1 = () => {
         </Slide>
         <Slide title="The NOT keyword">
           <p>The <code>NOT</code> keyword can be used to negate a condition (i.e. check whether the opposite is true).</p>
-          <ul>
-            <li>Works in combination with keyword comparison operators: <code>NOT BETWEEN</code>, <code>NOT IN</code>, <code>NOT LIKE</code> and <code>IS NOT</code></li>
-          </ul>
+          <p>It works in combination with keyword comparison operators: <code>NOT BETWEEN</code>, <code>NOT IN</code>, <code>NOT LIKE</code> and <code>IS NOT</code>.</p>
           <CodeTextArea mode="syntax" exampleCode={`SELECT t.column_name\n  FROM table_name AS t\n WHERE t.column_name NOT IN (value_1, value_2);`} />
         </Slide>
         <Slide title="Example">

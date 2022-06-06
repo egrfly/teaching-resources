@@ -25,12 +25,7 @@ const CodeTextArea = ({mode, exampleCode, language}: CodeTextAreaProps) => {
     const editorFromTextArea = CodeMirror.fromTextArea(snippet.current!, {
       mode: editorLanguage,
       theme: "vscode-dark",
-    })
-    setImmediate(() => {
-      editorFromTextArea.refresh()
-    })
-    document.addEventListener("click", () => {
-      editorFromTextArea.refresh()
+      autoRefresh: true,
     })
     setEditor(editorFromTextArea)
   }, [editorLanguage])
@@ -59,9 +54,9 @@ const CodeTextArea = ({mode, exampleCode, language}: CodeTextAreaProps) => {
       <textarea className="bg-dark" ref={snippet} defaultValue={mode === "exercise" ? "" : exampleCode} />
       {mode !== "syntax" && <>
         <div className="btn-group w-100 my-3" role="group" aria-label="Basic example">
-          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={runCode}>Run</button>
-          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={clearOutput}>Clear</button>
-          <button className="btn btn-dark btn-lg border-secondary w-100" onClick={showExampleCode}>{mode === "exercise" ? "Answer" : "Reset"}</button>
+          <button className="btn btn-dark border-secondary w-100" onClick={runCode}>Run</button>
+          <button className="btn btn-dark border-secondary w-100" onClick={clearOutput}>Clear Output</button>
+          <button className="btn btn-dark border-secondary w-100" onClick={showExampleCode}>{mode === "exercise" ? "Show Answer" : "Reset"}</button>
         </div>
         <div className="table-spacer">
           <div className={`table-wrapper rounded ${(rows || error) && 'border'} border-secondary`}>
