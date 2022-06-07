@@ -391,3 +391,45 @@ export const groupByExercises: Exercise[] = [
     solution: "  SELECT p.department,\n         AVG(p.price)\n    FROM products AS p\nGROUP BY p.department;",
   },
 ]
+
+export const havingExercises: Exercise[] = [
+  {
+    question: "Find all sponsors in the students table with more than 3 students. Include their student count in the results",
+    solution: "  SELECT s.sponsor,\n         COUNT(*)\n    FROM students AS s\nGROUP BY s.sponsor\n  HAVING COUNT(*) > 3;",
+  },
+  {
+    question: "Find the price of the most expensive item in each department in the products table with more than 1 product",
+    solution: "  SELECT p.department,\n         MAX(p.price)\n    FROM products AS p\nGROUP BY p.department\n  HAVING COUNT(*) > 1;",
+  },
+  {
+    question: "Find the total stock of each department in the products table where the average stock is at least 20",
+    solution: "  SELECT p.department,\n         SUM(p.stock)\n    FROM products AS p\nGROUP BY p.department\n  HAVING AVG(p.stock) > 20;",
+  },
+  {
+    question: "Find all departments where I would spend under £2 if I bought 1 of each item that was currently in stock",
+    solution: "  SELECT p.department\n    FROM products AS p\n   WHERE p.stock > 0\nGROUP BY p.department\n  HAVING SUM(p.price) < 2;",
+  },
+]
+
+export const orderByExercises: Exercise[] = [
+  {
+    question: "Display everyone in the students table in descending alphabetical name order",
+    solution: "  SELECT *\n    FROM students AS s\nORDER BY s.name DESC;",
+  },
+  {
+    question: "Display the items in the products table in order of price, cheapest first",
+    solution: "  SELECT *\n    FROM products AS p\nORDER BY p.price ASC;",
+  },
+  {
+    question: "Display the departments in the products table in order of total stock, least first",
+    solution: "  SELECT p.department,\n         SUM(p.stock) AS 'Total stock'\n    FROM products AS p\nGROUP BY p.department\nORDER BY SUM(p.stock) ASC;",
+  },
+  {
+    question: "Display the items in the products table in ascending alphabetical department order. Where items have the same department, display the item with the most stock first",
+    solution: "  SELECT *\n    FROM products AS p\nORDER BY p.department ASC,\n         p.stock DESC;",
+  },
+  {
+    question: "Display everyone in the students table in ascending chronological season order (spring students first, then summer students, then autumn students)",
+    solution: "  SELECT *\n    FROM students AS s\nORDER BY CASE s.season\n             WHEN 'Spring' THEN 1\n             WHEN 'Summer' THEN 2\n             WHEN 'Autumn' THEN 3\n         END ASC;",
+  },
+]

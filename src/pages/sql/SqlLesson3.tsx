@@ -8,6 +8,8 @@ import {
   numericFunctionExercises,
   setFunctionExercises,
   groupByExercises,
+  havingExercises,
+  orderByExercises,
 } from '../../data/exerciseManagement/sqlExerciseManagement'
 
 const SqlLesson3 = () => {
@@ -46,7 +48,6 @@ const SqlLesson3 = () => {
             <li><code>UPPER</code> - gets an uppercase version of a string</li>
             <li><code>SUBSTR</code> - gets a portion of a string</li>
             <li><code>TRIM</code> - gets a trimmed version of a string (with leading and trailing spaces removed)</li>
-            <li><code>REVERSE</code> - gets a back-to-front version of a string</li>
           </ul>
         </Slide>
         <Slide title="Example">
@@ -129,8 +130,8 @@ const SqlLesson3 = () => {
           </ul>
         </Slide>
         <Slide title="While you wait">
-          <p>Find all distinct sponsor-stream combinations for 2022.</p>
-          <CodeTextArea mode="exercise" exampleCode={`;`} />
+          <p>Find the minimum length, maximum length, average length and total length of the names in the students table. Use sensible rounding where appropriate. As a bonus, also find the standard deviation of the lengths.</p>
+          <CodeTextArea mode="exercise" exampleCode={`SELECT MIN(LENGTH(s.name)) AS 'Minimum length',\n       MAX(LENGTH(s.name)) AS 'Maximum length',\n       ROUND(AVG(LENGTH(s.name)), 1) AS 'Average length',\n       SUM(LENGTH(s.name)) AS 'Total length',\n       ROUND(STDEV(LENGTH(s.name)), 1) AS 'Standard deviation of length'\n  FROM students AS s;`} />
         </Slide>
       </SlideCollection>
 
@@ -170,29 +171,144 @@ const SqlLesson3 = () => {
         <Slide title="The HAVING keyword">
           <p>The <code>HAVING</code> keyword can be used to select which groups of data to display.</p>
           <p>It plays a similar role to the <code>WHERE</code> keyword, but a <code>HAVING</code> clause always comes after a <code>GROUP BY</code> (filtering aggregated data) whereas a <code>WHERE</code> clause always comes before (filtering non-aggregated data).</p>
-          <CodeTextArea mode="syntax" exampleCode={`  SELECT t.column_name, COUNT(t.column_name)\n    FROM table_name AS t\nGROUP BY t.column_name\n  HAVING COUNT(t.column_name) > VALUE;`} />
+          <CodeTextArea mode="syntax" exampleCode={`  SELECT t.column_name,\n         COUNT(t.column_name)\n    FROM table_name AS t\nGROUP BY t.column_name\n  HAVING COUNT(t.column_name) > VALUE;`} />
         </Slide>
         <Slide title="Example">
           <p>Find out all the streams with at least 8 students</p>
-          <CodeTextArea mode="demo" exampleCode={`  SELECT s.stream, COUNT(*)\n    FROM students AS s\nGROUP BY s.stream\n  HAVING COUNT(*) >= 8;`} />
+          <CodeTextArea mode="demo" exampleCode={`  SELECT s.stream,\n         COUNT(*)\n    FROM students AS s\nGROUP BY s.stream\n  HAVING COUNT(*) >= 8;`} />
         </Slide>
         <Slide title="Example">
           <p>Find out the average stock of each department in the products table where this average is at least 30</p>
-          <CodeTextArea mode="demo" exampleCode={`  SELECT p.department, AVG(p.stock)\n    FROM products AS p\nGROUP BY p.department\n  HAVING AVG(p.stock) > 30;`} />
+          <CodeTextArea mode="demo" exampleCode={`  SELECT p.department,\n         AVG(p.stock)\n    FROM products AS p\nGROUP BY p.department\n  HAVING AVG(p.stock) > 30;`} />
         </Slide>
         <Slide title="Example">
           <p>Find all departments where I would spend under £5 if I bought 1 of each item</p>
           <CodeTextArea mode="demo" exampleCode={`  SELECT p.department\n    FROM products AS p\nGROUP BY p.department\n  HAVING SUM(p.price) < 5;`} />
         </Slide>
-        <ExerciseSlides title="Filtering grouped data" ordinal="E" exercises={[]} />
+        <ExerciseSlides title="Filtering grouped data" ordinal="E" exercises={havingExercises} />
       </SlideCollection>
 
       <SlideCollection title="Ordering data">
         <Slide title="The ORDER BY keywords">
           <p>If you want to order data by a particular column, you can use an <code>ORDER BY</code> clause.</p>
-          <CodeTextArea mode="syntax" exampleCode={`  SELECT *\n    FROM table_name AS t\nORDER BY t.column_name;`} />
+          <p>Optionally, you can add an <code>ASC</code> or <code>DESC</code> keyword to specify whether you want the order to be ascending or descending.</p>
+          <CodeTextArea mode="syntax" exampleCode={`  SELECT *\n    FROM table_name AS t\nORDER BY t.column_name [ASC/DESC];`} />
         </Slide>
-        <ExerciseSlides title="Ordering data" ordinal="F" exercises={[]} />
+        <Slide title="Example">
+          <p>Display the items in the products table in ascending alphabetical name order</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM products AS p\nORDER BY p.name ASC;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Display the items in the products table in order of price, most expensive first</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM products AS p\nORDER BY p.price DESC;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Display the departments in the products table in order of most expensive item price</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT p.department,\n         MAX(p.price) AS 'Most expensive item price'\n    FROM products AS p\nGROUP BY p.department\nORDER BY MAX(p.price) DESC;`} />
+        </Slide>
+        <Slide title="Ordering by multiple columns">
+          <p>If you want to order data by a main column and a secondary column (to be used if entries have the same value for the main column), you can do all this inside one <code>ORDER BY</code> clause.</p>
+          <p>Optionally, you can still add an <code>ASC</code> or <code>DESC</code> keyword for each column to specify whether you want the order to be ascending or descending.</p>
+          <CodeTextArea mode="syntax" exampleCode={`  SELECT *\n    FROM table_name AS t\nORDER BY t.column_name ASC,\n         t.another_column_name DESC;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Display the items in the products table in ascending alphabetical department order. Where items have the same department, display the most expensive first</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM products AS p\nORDER BY p.department ASC,\n         p.price DESC;`} />
+        </Slide>
+        <Slide title="Custom ordering">
+          <p>You may not always want to order in alphabetical or numerical order. To achieve a custom ordering, a common strategy would be to use <code>CASE WHEN</code> syntax. This allows you to assign a value to each option and then order by that value. It is a lot like a switch statement in other programming languages.</p>
+          <p>This comes in quite handy if you want to order by e.g. days of the week or months of the year, earliest chronologically first rather than earliest alphabetically first.</p>
+          <CodeTextArea mode="syntax" exampleCode={`  SELECT *\n    FROM table_name AS t\nORDER BY CASE t.column_name\n             WHEN value_1 THEN another_value_1\n             WHEN value_2 THEN another_value_2\n         END;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Display everyone in the students table in order of how recently they took their course</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM students AS s\nORDER BY s.year DESC,\n         CASE s.season\n             WHEN 'Spring' THEN 1\n             WHEN 'Summer' THEN 2\n             WHEN 'Autumn' THEN 3\n         END DESC;`} />
+        </Slide>
+        <ExerciseSlides title="Ordering data" ordinal="F" exercises={orderByExercises} />
+      </SlideCollection>
+
+      <SlideCollection title="Conclusion">
+        <Slide title="Set functions from this lesson">
+          <p>The most important functions we learnt in this lesson were the set functions.</p>
+          <table className="table table-dark">
+            <thead>
+              <tr>
+                <th>Function</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>COUNT</code></td>
+                <td>When used with <code>*</code>, counts the number of rows in a set. When used with a specific column, counts the number of non-<code>NULL</code> values in a set</td>
+              </tr>
+              <tr>
+                <td><code>SUM</code></td>
+                <td>Gets the total of all the values in a set</td>
+              </tr>
+              <tr>
+                <td><code>AVG</code></td>
+                <td>Gets the average of all the values in a set</td>
+              </tr>
+              <tr>
+                <td><code>MIN</code></td>
+                <td>Gets the smallest value in a set</td>
+              </tr>
+              <tr>
+                <td><code>MAX</code></td>
+                <td>Gets the largest value in a set</td>
+              </tr>
+              <tr>
+                <td><code>GROUP_CONCAT</code></td>
+                <td>Gets all the items in a set, separated by commas</td>
+              </tr>
+            </tbody>
+          </table>
+        </Slide>
+        <Slide title="Keywords from this lesson">
+          <table className="table table-dark">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>GROUP</code></td>
+                <td>Indicates that we want to arrange data into groups</td>
+              </tr>
+              <tr>
+                <td><code>ORDER</code></td>
+                <td>Indicates that we want to arrange data in some order</td>
+              </tr>
+              <tr>
+                <td><code>BY</code></td>
+                <td>Used to specify the grouping or ordering criteria</td>
+              </tr>
+              <tr>
+                <td><code>HAVING</code></td>
+                <td>Used with <code>GROUP BY</code> to filter grouped data</td>
+              </tr>
+              <tr>
+                <td><code>CASE</code></td>
+                <td>Indicates that we want to calculate a custom field based on a particular column</td>
+              </tr>
+              <tr>
+                <td><code>WHEN</code></td>
+                <td>Used to specify a value from the original column</td>
+              </tr>
+              <tr>
+                <td><code>THEN</code></td>
+                <td>Used to specify a custom value based on the original column value</td>
+              </tr>
+              <tr>
+                <td><code>END</code></td>
+                <td>Indicates the end of a <code>CASE WHEN</code> block</td>
+              </tr>
+            </tbody>
+          </table>
+        </Slide>
       </SlideCollection>
 
     </Presentation>
