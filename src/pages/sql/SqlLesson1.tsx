@@ -53,8 +53,8 @@ const SqlLesson1 = () => {
         <Slide title="Selection with wildcards">
           <p>The <code>*</code> wildcard selects all columns.</p>
           <ul>
-            <li>Very suitable for exploratory work - you can see all the available data and work out what you need</li>
-            <li>Not well-suited for inclusion in production code - you are dependent on the table structure not changing to avoid including data unintentionally</li>
+            <li>Very suitable for exploratory work &ndash; you can see all the available data and work out what you need</li>
+            <li>Not well-suited for inclusion in production code &ndash; you are dependent on the table structure not changing to avoid including data unintentionally</li>
           </ul>
           <CodeTextArea mode="syntax" exampleCode={`SELECT *\n  FROM table_name;`} />
         </Slide>
@@ -65,8 +65,8 @@ const SqlLesson1 = () => {
         <Slide title="Selection with column names">
           <p>You can specify which exact columns to include.</p>
           <ul>
-            <li>Not well-suited for exploratory work - you might not know what columns are available, you can only see a subset of the available information</li>
-            <li>Suitable for inclusion in production code - you know exactly what you're going to get, no chance of including extra data unintentionally</li>
+            <li>Not well-suited for exploratory work &ndash; you might not know what columns are available, you can only see a subset of the available information</li>
+            <li>Suitable for inclusion in production code &ndash; you know exactly what you're going to get, no chance of including extra data unintentionally</li>
           </ul>
           <CodeTextArea mode="syntax" exampleCode={`SELECT column_name,\n       another_column_name\n  FROM table_name;`} />
         </Slide>
@@ -77,7 +77,7 @@ const SqlLesson1 = () => {
         <Slide title="Table name prefixing">
           <p>You can prefix the column names by the table they belong to.</p>
           <ul>
-            <li>Good practice, especially if you are including several tables - improves clarity</li>
+            <li>Good practice, especially if you are including several tables &ndash; improves clarity</li>
             <li>Can cause queries to become quite lengthy</li>
           </ul>
           <CodeTextArea mode="syntax" exampleCode={`SELECT table_name.column_name,\n       table_name.another_column_name\n  FROM table_name;`} />
@@ -158,7 +158,7 @@ const SqlLesson1 = () => {
         <Slide title="Comparison operator symbols">
           <p>
             As well as <code>=</code>, the <code>!=</code> and <code>&lt;&gt;</code> operators can be used for like-for-like comparisons.
-            These two operators do the same thing - both check for inequality. <code>!=</code> is more common in other programming languages, whereas <code>&lt;&gt;</code> is more common in spreadsheets.
+            These two operators do the same thing &ndash; both check for inequality. <code>!=</code> is more common in other programming languages, whereas <code>&lt;&gt;</code> is more common in spreadsheets.
           </p>
           <p>The <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> operators can also be used for ordered comparisons.</p>
           <CodeTextArea mode="syntax" exampleCode={`SELECT *\n  FROM table_name AS t\n WHERE t.column_name >= value;`} />
@@ -213,22 +213,45 @@ const SqlLesson1 = () => {
         </Slide>
       </SlideCollection>
 
-      <SlideCollection title="Further comparison operators">
+      <SlideCollection title="Special values">
         <Slide title="The NULL keyword">
-          <p>You may have noticed that some of the sponsors are blank. This is because they have been filled in with a special keyword called <code>NULL</code>.</p>
+          <p>You may have noticed that in the students table, some of the sponsors are blank. This is because they have been filled in with a special keyword called <code>NULL</code>.</p>
           <ul>
-            <li>A student having <code>NULL</code> in their sponsor column doesn't necessarily mean they have no sponsor - rather, it means that we are missing that piece of information for them</li>
-            <li>In some ways, <code>NULL</code> is more like a property than a value - it represents the state of being missing or unknown</li>
-            <li>The <code>=</code> and other symbolic comparison operators are useless when coming up against <code>NULL</code> - if we don't know a particular value, we can't possibly say whether it is equal to or not equal to something</li>
+            <li>A student having <code>NULL</code> in their sponsor column doesn't necessarily mean they have no sponsor &ndash; rather, it means that we are missing that piece of information for them</li>
+            <li>In some ways, <code>NULL</code> is more like a property than a value &ndash; it represents the state of being missing or unknown</li>
+            <li>The <code>=</code> and other symbolic comparison operators are useless when coming up against <code>NULL</code> &ndash; if we don't know a particular value, we can't possibly say whether it is equal to or not equal to something</li>
           </ul>
         </Slide>
+        <Slide title="The TRUE keyword">
+          <p>You may have noticed that in the products table, the <code>on_offer</code> column is filled with 1s and 0s. These are values that have been filled in with <code>TRUE</code> and <code>FALSE</code>.</p>
+          <ul>
+            <li>The special value <code>TRUE</code> represents a fulfilled condition or accurate statement, and results from true statements like <code>4 &lt; 5</code> and <code>'Hello' != 'Goodbye'</code></li>
+            <li>When evaluated, it is actually just equal to 1, meaning that the 1s in the <code>on_offer</code> column were filled in with <code>TRUE</code></li>
+          </ul>
+        </Slide>
+        <Slide title="The FALSE keyword">
+          <ul>
+            <li>The special value <code>FALSE</code> represents an unfulfilled condition or inaccurate statement, and results from true statements like <code>4 &gt; 5</code> and <code>'Hello' = 'Goodbye'</code></li>
+            <li>When evaluated, it is actually just equal to 0, meaning that the 0s in the <code>on_offer</code> column were filled in with <code>FALSE</code></li>
+          </ul>
+        </Slide>
+      </SlideCollection>
+
+      <SlideCollection title="Further comparison operators">
         <Slide title="The IS keyword">
-          <p>You can use the <code>IS</code> operator to check if a value is or isn't <code>NULL</code> (missing).</p>
+          <p>You can use the <code>IS</code> operator to check for a special value. For example, it is used to check if a value is or isn't <code>NULL</code> (missing).</p>
           <CodeTextArea mode="syntax" exampleCode={`SELECT *\n  FROM table_name AS t\n WHERE t.column_name IS NULL;`} />
         </Slide>
         <Slide title="Example">
           <p>Select everyone in the students table whose sponsor is not known</p>
           <CodeTextArea mode="demo" exampleCode={`SELECT *\n  FROM students AS s\n WHERE s.sponsor IS NULL;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Select all items in the products table which are on offer</p>
+          <div className="d-flex dual-code-text-area">
+            <CodeTextArea mode="demo" exampleCode={`SELECT *\n  FROM products AS p\n WHERE p.on_offer IS TRUE;`} />
+            <CodeTextArea mode="demo" exampleCode={`-- Because p.on_offer is already TRUE or FALSE, we can just use it in a WHERE clause directly\nSELECT *\n  FROM products AS p\n WHERE p.on_offer;`} />
+          </div>
         </Slide>
         <Slide title="The BETWEEN keyword">
           <p>You can use the <code>BETWEEN</code> operator to check if a value belongs in a range.</p>
@@ -368,14 +391,6 @@ const SqlLesson1 = () => {
                 <td><code>WHERE</code></td>
                 <td>Used to determine which rows to select</td>
               </tr>
-              <tr>
-                <td><code>IS</code></td>
-                <td>Used to check if values are missing (<code>NULL</code>)</td>
-              </tr>
-              <tr>
-                <td><code>NULL</code></td>
-                <td>Used to represent a missing value</td>
-              </tr>
             </tbody>
           </table>
         </Slide>
@@ -389,6 +404,10 @@ const SqlLesson1 = () => {
             </thead>
             <tbody>
               <tr>
+                <td><code>IS</code></td>
+                <td>Used to check if values are missing (<code>NULL</code>)</td>
+              </tr>
+              <tr>
                 <td><code>BETWEEN</code></td>
                 <td>Used to check if values are within specified bounds</td>
               </tr>
@@ -400,6 +419,42 @@ const SqlLesson1 = () => {
                 <td><code>LIKE</code></td>
                 <td>Used to check values match a specified pattern</td>
               </tr>
+            </tbody>
+          </table>
+        </Slide>
+        <Slide title="Keywords from this lesson (part 3)">
+          <table className="table table-dark">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>NULL</code></td>
+                <td>Used to represent a missing value</td>
+              </tr>
+              <tr>
+                <td><code>TRUE</code></td>
+                <td>Used to represent a fulfilled condition, accurate statement or true value (equal to 1)</td>
+              </tr>
+              <tr>
+                <td><code>FALSE</code></td>
+                <td>Used to represent an unfulfilled condition, inaccurate statement or false value (equal to 0)</td>
+              </tr>
+            </tbody>
+          </table>
+        </Slide>
+        <Slide title="Keywords from this lesson (part 4)">
+          <table className="table table-dark">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td><code>AND</code></td>
                 <td>Used to chain conditions; also used to specify the bounds of a <code>BETWEEN</code> clause</td>

@@ -39,22 +39,22 @@ export const sqlResources: Resource[] = [
   },
   {
     title: 'Lesson 3',
-    description: 'Learn how to write queries to group and order data',
+    description: 'Learn how to use functions and how to write queries to group and order data',
     url: 'lesson-3',
   },
   {
     title: 'Lesson 4',
-    description: 'Learn how to use joins, unions and subqueries',
+    description: 'Learn how to normalise data, how to use constraints and keys, and how to use joins',
     url: 'lesson-4',
   },
   {
     title: 'Lesson 5',
-    description: 'Learn how to use built-in functions and write your own functions and procedures',
+    description: 'Learn more about joins and how to use subqueries and unions',
     url: 'lesson-5',
   },
   {
     title: 'Lesson 6',
-    description: 'Learn how to use transactions, indexes, locks, views, triggers and events',
+    description: 'Learn how to use transactions, indexes, views, triggers and events',
     url: 'lesson-6',
   },
 ]

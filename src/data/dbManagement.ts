@@ -31,21 +31,21 @@ export const createTables = (db: any) => {
                                 ('Mhai',        'Bank of America', 'Data',        'Summer',    2021),
                                 ('Chloe',       'Bank of America', 'Data',        'Summer',    2021),
                                 ('Shayli',      'CFG',             'Software',    'Summer',    2021)`)
-  db.run(`CREATE TABLE products (name TEXT,               department TEXT,          stock INTEGER, price FLOAT)`)
-  db.run(`INSERT INTO products  (name,                    department,               stock,         price) VALUES
-                                ('Grated cheddar',        'Dairy and alternatives', 50,            1.50),
-                                ('Button mushrooms',      'Fruit and veg',          20,            0.99),
-                                ('Bag of mixed peppers',  'Fruit and veg',          20,            1.35),
-                                ('Long-grain white rice', 'Pasta and rice',         40,            0.50),
-                                ('Banana smoothie',       'Drinks',                 0,             1.70),
-                                ('Paprika pringles',      'Snacks',                 NULL,          1.75),
-                                ('Rich tea biscuits',     'Snacks',                 40,            0.25),
-                                ('Flat peaches',          'Fruit and veg',          0,             0.30),
-                                ('Macaroni cheese',       'Ready meals',            10,            2.00),
-                                ('Smooth orange juice',   'Drinks',                 20,            1.50),
-                                ('Rigatoni',              'Pasta and rice',         50,            0.70),
-                                ('Oat cream',             'Dairy and alternatives', NULL,          1.50),
-                                ('Haribo giant strawbs',  'Snacks',                 20,            1.00),
-                                ('Easy peeler oranges',   'Fruit and veg',          40,            1.00),
-                                ('Broccoli',              'Fruit and veg',          35,            0.50)`)
+  db.run(`CREATE TABLE products (name TEXT,               department TEXT,          stock INTEGER, price FLOAT, on_offer BOOLEAN)`)
+  db.run(`INSERT INTO products  (name,                    department,               stock,         price,       on_offer) VALUES
+                                ('Grated cheddar',        'Dairy and alternatives', 50,            1.50,        FALSE),
+                                ('Button mushrooms',      'Fruit and veg',          20,            0.99,        FALSE),
+                                ('Bag of mixed peppers',  'Fruit and veg',          20,            1.35,        FALSE),
+                                ('Long-grain white rice', 'Pasta and rice',         40,            0.50,        FALSE),
+                                ('Banana smoothie',       'Drinks',                 0,             1.70,        TRUE),
+                                ('Paprika pringles',      'Snacks',                 NULL,          1.75,        TRUE),
+                                ('Rich tea biscuits',     'Snacks',                 40,            0.25,        FALSE),
+                                ('Flat peaches',          'Fruit and veg',          0,             0.30,        FALSE),
+                                ('Macaroni cheese',       'Ready meals',            10,            2.00,        TRUE),
+                                ('Smooth orange juice',   'Drinks',                 20,            1.50,        FALSE),
+                                ('Rigatoni',              'Pasta and rice',         50,            0.70,        FALSE),
+                                ('Oat cream',             'Dairy and alternatives', NULL,          1.50,        FALSE),
+                                ('Haribo giant strawbs',  'Snacks',                 20,            1.00,        TRUE),
+                                ('Easy peeler oranges',   'Fruit and veg',          40,            1.00,        FALSE),
+                                ('Broccoli',              'Fruit and veg',          35,            0.50,        FALSE)`)
 }

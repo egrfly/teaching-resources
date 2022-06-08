@@ -369,6 +369,21 @@ export const setFunctionExercises: Exercise[] = [
   },
 ]
 
+export const flowControlExercises: Exercise[] = [
+  {
+    question: "Select everyone from the students table and the year the CFGdegree was in since its inauguration when they took their course (first year for 2021, second year for 2022)",
+    solution: "SELECT s.name,\n       CASE s.year\n           WHEN 2021 THEN 'First year'\n           WHEN 2022 THEN 'Second year'\n       END AS 'Year of CFGdegree'\n  FROM students AS s;",
+  },
+  {
+    question: "Select everyone from the students table and the language their final project is primarily in (Python for data and software students, React for full stack students)",
+    solution: "SELECT s.name,\n       CASE s.stream\n           WHEN 'Data' THEN 'Python'\n           WHEN 'Software' THEN 'Python'\n           WHEN 'Full Stack' THEN 'React'\n       END AS 'Final project language'\n  FROM students AS s;",
+  },
+  {
+    question: "(Difficult.) Suppose the offer in the products table is for half price. Select each item and an additional calculated column, the offer price, which contains half the regular price if the item is on offer, otherwise just the unchanged regular price",
+    solution: "SELECT p.name,\n       CASE\n           WHEN p.on_offer THEN ROUND(0.5 * p.price, 2)\n           ELSE p.price\n       END AS 'Offer price'\n  FROM products AS p;",
+  },
+]
+
 export const groupByExercises: Exercise[] = [
   {
     question: "Find the number of students sponsored by each sponsor for each stream",

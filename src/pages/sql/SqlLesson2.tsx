@@ -131,7 +131,7 @@ const SqlLesson2 = () => {
         </Slide>
         <Slide title="A note about use of the DELETE keyword without a WHERE clause">
           <p>Some SQL dialects like MySQL prevent you from deleting all rows using <code>DELETE FROM</code> by default, on the basis that it often happens by mistake and is irreversible. If you really want to delete all rows from a table, you can use a <code>TRUNCATE TABLE</code> statement.</p>
-          <p>SQLite doesn't support <code>TRUNCATE TABLE</code> - you would just use a regular <code>DELETE FROM</code> statement, and it would assume you knew what you were doing.</p>
+          <p>SQLite doesn't support <code>TRUNCATE TABLE</code> &ndash; you would just use a regular <code>DELETE FROM</code> statement, and it would assume you knew what you were doing.</p>
           <CodeTextArea mode="syntax" exampleCode={`TRUNCATE TABLE table_name;`} />
         </Slide>
         <Slide title="Example">
@@ -207,19 +207,23 @@ const SqlLesson2 = () => {
           <ul>
             <li><code>CHAR(n)</code> &ndash; fixed-length character strings (exactly <code>n</code> characters long)</li>
             <li><code>VARCHAR(n)</code> &ndash; variable-length character strings (up to <code>n</code> characters long)</li>
+            <li><code>TEXT</code> &ndash; longer passages of text</li>
             <li><code>INT</code> or <code>INTEGER</code> &ndash; whole numbers</li>
             <li><code>FLOAT</code> &ndash; any numbers (not necessarily whole)</li>
+            <li><code>DECIMAL(n, d)</code> &ndash; any numbers (not necessarily whole) up to <code>n</code> digits long, of which up to <code>d</code> after the decimal place</li>
+            <li><code>BOOLEAN</code> &ndash; one of two values, <code>TRUE</code> (1) or <code>FALSE</code> (0)</li>
           </ul>
           <p>Many SQL dialects also have specialised types like <code>DATE</code>, <code>TIME</code> and <code>DATETIME</code> (MySQL would be an example, whereas SQLite doesn't have these).</p>
+          <p>In fact, SQLite actually treats a lot of these data types the same internally, so the differences between <code>CHAR</code>/<code>VARCHAR</code>/<code>TEXT</code> or <code>FLOAT</code>/<code>DECIMAL</code> are purely cosmetic. In database engines like MySQL, these differences have real meaning.</p>
         </Slide>
         <Slide title="Example">
           <p>Create a table for instructors (with a name, stream, season and year)</p>
-          <CodeTextArea mode="demo" exampleCode={`CREATE TABLE instructors (\n  name   VARCHAR(255),\n  stream VARCHAR(20),\n  season CHAR(6),\n  year   INTEGER\n);`} />
+          <CodeTextArea mode="demo" exampleCode={`CREATE TABLE instructors (\n  name    VARCHAR(255),\n  stream  VARCHAR(20),\n  season  CHAR(6),\n  year    INTEGER,\n  is_lead BOOLEAN\n);`} />
         </Slide>
         <Slide title="Example">
           <p>Insert your instructors into the new instructors table so you can see it in action!</p>
           <div className="d-flex dual-code-text-area">
-            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO instructors\nVALUES ('Emily', 'Software', 'Summer', 2022),\n       ('Ali', 'Software', 'Summer', 2022),\n       ('Shepstone', 'Software', 'Summer', 2022);`} />
+            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO instructors\nVALUES ('Emily', 'Software', 'Summer', 2022, TRUE),\n       ('Ali', 'Software', 'Summer', 2022, TRUE),\n       ('Shepstone', 'Software', 'Summer', 2022, FALSE);`} />
             <CodeTextArea mode="demo" exampleCode={`SELECT *\n  FROM instructors;`} />
           </div>
         </Slide>
@@ -278,7 +282,7 @@ const SqlLesson2 = () => {
       <SlideCollection title="Table removal">
         <Slide title="The DROP keyword">
           <p>If you want to delete a table, you can use a <code>DROP</code> statement.</p>
-          <p>Be careful when using <code>DROP</code> - you can't undo the deletion unless you have a backup of the table.</p>
+          <p>Be careful when using <code>DROP</code> &ndash; you can't undo the deletion unless you have a backup of the table.</p>
           <CodeTextArea mode="syntax" exampleCode={`DROP TABLE table_name;`} />
         </Slide>
         <Slide title="Example">

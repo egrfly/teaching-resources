@@ -10,6 +10,7 @@ import {
   groupByExercises,
   havingExercises,
   orderByExercises,
+  flowControlExercises,
 } from '../../data/exerciseManagement/sqlExerciseManagement'
 
 const SqlLesson3 = () => {
@@ -23,6 +24,7 @@ const SqlLesson3 = () => {
         <Slide title="Lesson plan">
           <ol>
             <li>Built-in functions</li>
+            <li>Flow control operators</li>
             <li>Grouping data</li>
             <li>Filtering grouped data</li>
             <li>Ordering data</li>
@@ -42,12 +44,12 @@ const SqlLesson3 = () => {
         <Slide title="String functions">
           <p>One prominent category of functions is those that operate on strings (pieces of text). Examples include:</p>
           <ul>
-            <li><code>LENGTH</code> - gets the length of a string</li>
-            <li><code>CONCAT</code> in MySQL (equivalent to the <code>||</code> operator in SQLite) - joins strings together end-to-end</li>
-            <li><code>LOWER</code> - gets a lowercase version of a string</li>
-            <li><code>UPPER</code> - gets an uppercase version of a string</li>
-            <li><code>SUBSTR</code> - gets a portion of a string</li>
-            <li><code>TRIM</code> - gets a trimmed version of a string (with leading and trailing spaces removed)</li>
+            <li><code>LENGTH</code> &ndash; gets the length of a string</li>
+            <li><code>CONCAT</code> in MySQL (equivalent to the <code>||</code> operator in SQLite) &ndash; joins strings together end-to-end</li>
+            <li><code>LOWER</code> &ndash; gets a lowercase version of a string</li>
+            <li><code>UPPER</code> &ndash; gets an uppercase version of a string</li>
+            <li><code>SUBSTR</code> &ndash; gets a portion of a string</li>
+            <li><code>TRIM</code> &ndash; gets a trimmed version of a string (with leading and trailing spaces removed)</li>
           </ul>
         </Slide>
         <Slide title="Example">
@@ -66,10 +68,10 @@ const SqlLesson3 = () => {
         <Slide title="Numeric functions">
           <p>Another prominent category of functions is those that operate on numbers. Examples include:</p>
           <ul>
-            <li><code>ROUND</code> - rounds a number to a certain amount of decimal places, or to the nearest whole number</li>
-            <li><code>SQRT</code> - gets the square root of a number</li>
-            <li><code>ABS</code> - gets the absolute value of a number (the same number without a negative sign if originally present)</li>
-            <li><code>PI</code> - gets the number &pi;</li>
+            <li><code>ROUND</code> &ndash; rounds a number to a certain amount of decimal places, or to the nearest whole number</li>
+            <li><code>SQRT</code> &ndash; gets the square root of a number</li>
+            <li><code>ABS</code> &ndash; gets the absolute value of a number (the same number without a negative sign if originally present)</li>
+            <li><code>PI</code> &ndash; gets the number &pi;</li>
           </ul>
         </Slide>
         <Slide title="Example">
@@ -98,12 +100,12 @@ const SqlLesson3 = () => {
         <Slide title="Set functions">
           <p>Another prominent category of functions is those that operate on whole columns at once. These include:</p>
           <ul>
-            <li><code>COUNT</code> - gets the number of non-<code>NULL</code> items in a list</li>
-            <li><code>SUM</code> - gets the total of all the numbers in a list</li>
-            <li><code>MIN</code> - gets the minimum value in a list</li>
-            <li><code>MAX</code> - gets the maximum value in a list</li>
-            <li><code>AVG</code> - gets the average of all the numbers in a list</li>
-            <li><code>GROUP_CONCAT</code> - gets all the strings in a list added together into one big string separated by commas</li>
+            <li><code>COUNT</code> &ndash; gets the number of non-<code>NULL</code> items in a list</li>
+            <li><code>SUM</code> &ndash; gets the total of all the numbers in a list</li>
+            <li><code>MIN</code> &ndash; gets the minimum value in a list</li>
+            <li><code>MAX</code> &ndash; gets the maximum value in a list</li>
+            <li><code>AVG</code> &ndash; gets the average of all the numbers in a list</li>
+            <li><code>GROUP_CONCAT</code> &ndash; gets all the strings in a list added together into one big string separated by commas</li>
           </ul>
         </Slide>
         <Slide title="Example">
@@ -121,16 +123,38 @@ const SqlLesson3 = () => {
         <ExerciseSlides title="Set functions" ordinal="C" exercises={setFunctionExercises} />
       </SlideCollection>
 
+      <SlideCollection title="Flow control operators">
+        <Slide title="The CASE keyword">
+          <p>If you want to generate a new column based on values in another column in a way that a built-in function doesn't cover, you can use a <code>CASE WHEN</code> expression.</p>
+          <CodeTextArea mode="syntax" exampleCode={`SELECT CASE t.column_name\n           WHEN value_1 THEN another_value_1\n           WHEN value_2 THEN another_value_2\n       END\n  FROM table_name AS t;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Select everyone from the students table and which term they took their course in (spring: term 1, summer: term 2, autumn: term 3)</p>
+          <CodeTextArea mode="demo" exampleCode={`SELECT s.name,\n       CASE s.season\n           WHEN 'Spring' THEN 1\n           WHEN 'Summer' THEN 2\n           WHEN 'Autumn' THEN 3\n       END AS 'Term'\n  FROM students AS s;`} />
+        </Slide>
+        <Slide title="The CASE keyword">
+          <p>If you want to generate a new column based on more complex conditions, that is also possible.</p>
+          <p>Another optional addition is an <code>ELSE</code> clause, which matches everything not already covered by one of the preceding conditions. If you don't include it, anything not covered will default to <code>NULL</code>.</p>
+          <CodeTextArea mode="syntax" exampleCode={`SELECT CASE\n           WHEN t.column_name > value_1 THEN another_value_1\n           WHEN t.column_name < value_2 THEN another_value_2\n           ELSE another_value_3\n       END\n  FROM table_name AS t;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Select all items from the products table and whether or not they are currently in stock</p>
+          <CodeTextArea mode="demo" exampleCode={`SELECT p.name,\n       CASE\n           WHEN p.stock > 0 THEN TRUE\n           WHEN p.stock = 0 THEN FALSE\n           ELSE NULL\n       END AS 'Currently in stock'\n  FROM products AS p;`} />
+        </Slide>
+        <ExerciseSlides title="Flow control operators" ordinal="D" exercises={flowControlExercises} />
+      </SlideCollection>
+
       <SlideCollection title="Recap and pause">
         <Slide title="Material covered so far">
           <ul>
             <li>Built-in string functions</li>
             <li>Built-in numeric functions</li>
             <li>Built-in set functions</li>
+            <li>Flow control operators</li>
           </ul>
         </Slide>
         <Slide title="While you wait">
-          <p>Find the minimum length, maximum length, average length and total length of the names in the students table. Use sensible rounding where appropriate. As a bonus, also find the standard deviation of the lengths.</p>
+          <p>Find the minimum length, maximum length, average length and total length of the names in the students table. Use sensible rounding where appropriate. As a bonus, also find the standard deviation of the lengths (<code>STDEV</code> in extended SQLite, <code>STDDEV</code> in MySQL)</p>
           <CodeTextArea mode="exercise" exampleCode={`SELECT MIN(LENGTH(s.name)) AS 'Minimum length',\n       MAX(LENGTH(s.name)) AS 'Maximum length',\n       ROUND(AVG(LENGTH(s.name)), 1) AS 'Average length',\n       SUM(LENGTH(s.name)) AS 'Total length',\n       ROUND(STDEV(LENGTH(s.name)), 1) AS 'Standard deviation of length'\n  FROM students AS s;`} />
         </Slide>
       </SlideCollection>
@@ -164,7 +188,7 @@ const SqlLesson3 = () => {
           <p>Find the average length of the names of the students in each stream</p>
           <CodeTextArea mode="demo" exampleCode={`  SELECT s.stream, AVG(LENGTH(s.name)) AS 'Average Name Length'\n    FROM students AS s\nGROUP BY s.stream;`} />
         </Slide>
-        <ExerciseSlides title="Grouping data" ordinal="D" exercises={groupByExercises} />
+        <ExerciseSlides title="Grouping data" ordinal="E" exercises={groupByExercises} />
       </SlideCollection>
 
       <SlideCollection title="Filtering grouped data">
@@ -185,7 +209,7 @@ const SqlLesson3 = () => {
           <p>Find all departments where I would spend under £5 if I bought 1 of each item</p>
           <CodeTextArea mode="demo" exampleCode={`  SELECT p.department\n    FROM products AS p\nGROUP BY p.department\n  HAVING SUM(p.price) < 5;`} />
         </Slide>
-        <ExerciseSlides title="Filtering grouped data" ordinal="E" exercises={havingExercises} />
+        <ExerciseSlides title="Filtering grouped data" ordinal="F" exercises={havingExercises} />
       </SlideCollection>
 
       <SlideCollection title="Ordering data">
@@ -216,15 +240,15 @@ const SqlLesson3 = () => {
           <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM products AS p\nORDER BY p.department ASC,\n         p.price DESC;`} />
         </Slide>
         <Slide title="Custom ordering">
-          <p>You may not always want to order in alphabetical or numerical order. To achieve a custom ordering, a common strategy would be to use <code>CASE WHEN</code> syntax. This allows you to assign a value to each option and then order by that value. It is a lot like a switch statement in other programming languages.</p>
-          <p>This comes in quite handy if you want to order by e.g. days of the week or months of the year, earliest chronologically first rather than earliest alphabetically first.</p>
+          <p>You may not always want to order in alphabetical or numerical order. To achieve a custom ordering, a common strategy would be to use <code>CASE WHEN</code> syntax from earlier in the lesson. This allows you to assign a value to each option and then order by that value.</p>
+          <p>This comes in quite handy if you want to order by e.g. days of the week or months of the year, chronologically rather than alphabetically.</p>
           <CodeTextArea mode="syntax" exampleCode={`  SELECT *\n    FROM table_name AS t\nORDER BY CASE t.column_name\n             WHEN value_1 THEN another_value_1\n             WHEN value_2 THEN another_value_2\n         END;`} />
         </Slide>
         <Slide title="Example">
           <p>Display everyone in the students table in order of how recently they took their course</p>
           <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM students AS s\nORDER BY s.year DESC,\n         CASE s.season\n             WHEN 'Spring' THEN 1\n             WHEN 'Summer' THEN 2\n             WHEN 'Autumn' THEN 3\n         END DESC;`} />
         </Slide>
-        <ExerciseSlides title="Ordering data" ordinal="F" exercises={orderByExercises} />
+        <ExerciseSlides title="Ordering data" ordinal="G" exercises={orderByExercises} />
       </SlideCollection>
 
       <SlideCollection title="Conclusion">
@@ -265,7 +289,39 @@ const SqlLesson3 = () => {
             </tbody>
           </table>
         </Slide>
-        <Slide title="Keywords from this lesson">
+        <Slide title="Keywords from this lesson (part 1)">
+          <table className="table table-dark">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>CASE</code></td>
+                <td>Indicates that we want to calculate a custom field based on a particular column</td>
+              </tr>
+              <tr>
+                <td><code>WHEN</code></td>
+                <td>Used to specify a value from the original column</td>
+              </tr>
+              <tr>
+                <td><code>THEN</code></td>
+                <td>Used to specify a custom value based on the original column value</td>
+              </tr>
+              <tr>
+                <td><code>ELSE</code></td>
+                <td>Used to specify a custom value to be used in the default case</td>
+              </tr>
+              <tr>
+                <td><code>END</code></td>
+                <td>Indicates the end of a <code>CASE WHEN</code> block</td>
+              </tr>
+            </tbody>
+          </table>
+        </Slide>
+        <Slide title="Keywords from this lesson (part 2)">
           <table className="table table-dark">
             <thead>
               <tr>
@@ -289,22 +345,6 @@ const SqlLesson3 = () => {
               <tr>
                 <td><code>HAVING</code></td>
                 <td>Used with <code>GROUP BY</code> to filter grouped data</td>
-              </tr>
-              <tr>
-                <td><code>CASE</code></td>
-                <td>Indicates that we want to calculate a custom field based on a particular column</td>
-              </tr>
-              <tr>
-                <td><code>WHEN</code></td>
-                <td>Used to specify a value from the original column</td>
-              </tr>
-              <tr>
-                <td><code>THEN</code></td>
-                <td>Used to specify a custom value based on the original column value</td>
-              </tr>
-              <tr>
-                <td><code>END</code></td>
-                <td>Indicates the end of a <code>CASE WHEN</code> block</td>
               </tr>
             </tbody>
           </table>
