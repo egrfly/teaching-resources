@@ -7,10 +7,11 @@ import {
   stringFunctionExercises,
   numericFunctionExercises,
   setFunctionExercises,
+  flowControlExercises,
   groupByExercises,
   havingExercises,
   orderByExercises,
-  flowControlExercises,
+  limitExercises,
 } from '../../data/exerciseManagement/sqlExerciseManagement'
 
 const SqlLesson3 = () => {
@@ -251,6 +252,27 @@ const SqlLesson3 = () => {
         <ExerciseSlides title="Ordering data" ordinal="G" exercises={orderByExercises} />
       </SlideCollection>
 
+      <SlideCollection title="Limiting the number of results">
+        <Slide title="The LIMIT keyword">
+          <p>If you want to return only a specific number of results, you can use the <code>LIMIT</code> keyword.</p>
+          <p>It is particularly useful in conjunction with <code>ORDER BY</code> to find e.g. the top three items.</p>
+          <CodeTextArea mode="syntax" exampleCode={`SELECT *\n  FROM table_name AS t\n LIMIT number;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Select any 10 people from the students table</p>
+          <CodeTextArea mode="demo" exampleCode={`SELECT *\n  FROM students AS s\n LIMIT 10;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Find the three most expensive items in the products table</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM products AS p\nORDER BY p.price DESC\n   LIMIT 3;`} />
+        </Slide>
+        <Slide title="Example">
+          <p>Find the last person alphabetically in the students table</p>
+          <CodeTextArea mode="demo" exampleCode={`  SELECT *\n    FROM students AS s\nORDER BY s.name DESC\n   LIMIT 1;`} />
+        </Slide>
+        <ExerciseSlides title="Using the LIMIT keyword" ordinal="H" exercises={limitExercises} />
+      </SlideCollection>
+
       <SlideCollection title="Conclusion">
         <Slide title="Set functions from this lesson">
           <p>The most important functions we learnt in this lesson were the set functions.</p>
@@ -345,6 +367,10 @@ const SqlLesson3 = () => {
               <tr>
                 <td><code>HAVING</code></td>
                 <td>Used with <code>GROUP BY</code> to filter grouped data</td>
+              </tr>
+              <tr>
+                <td><code>LIMIT</code></td>
+                <td>Used to limit the number of results to a specified amount</td>
               </tr>
             </tbody>
           </table>

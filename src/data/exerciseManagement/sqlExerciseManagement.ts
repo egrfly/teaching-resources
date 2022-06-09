@@ -448,3 +448,26 @@ export const orderByExercises: Exercise[] = [
     solution: "  SELECT *\n    FROM students AS s\nORDER BY CASE s.season\n             WHEN 'Spring' THEN 1\n             WHEN 'Summer' THEN 2\n             WHEN 'Autumn' THEN 3\n         END ASC;",
   },
 ]
+
+export const limitExercises: Exercise[] = [
+  {
+    question: "Select any 5 items from the products table",
+    solution: "SELECT *\n  FROM products AS p\n LIMIT 5;",
+  },
+  {
+    question: "Select the first 5 items alphabetically from the products table",
+    solution: "  SELECT *\n    FROM products AS p\nORDER BY p.name ASC\n   LIMIT 5;",
+  },
+  {
+    question: "Select the cheapest item from the products table",
+    solution: "  SELECT *\n    FROM products AS p\nORDER BY p.price ASC\n   LIMIT 1;",
+  },
+  {
+    question: "Select the 3 sponsors with the longest names from the students table",
+    solution: "SELECT DISTINCT s.sponsor\n           FROM students AS s\n       ORDER BY LENGTH(s.sponsor) DESC\n          LIMIT 3;",
+  },
+  {
+    question: "Select the 3 departments with the most overall stock from the products table",
+    solution: "  SELECT p.department,\n         SUM(p.stock)\n    FROM products AS p\nGROUP BY p.department\nORDER BY SUM(p.stock) DESC\n   LIMIT 3;",
+  },
+]
