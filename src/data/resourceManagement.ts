@@ -26,6 +26,42 @@ export const jsResources: Resource[] = [
   },
 ]
 
+export const jsLesson1Resources: Resource[] = [
+  {
+    title: 'Amongst Us signup page',
+    description: 'The page used for the Amongst Us exercise',
+    url: 'amongst-us',
+  },
+  {
+    title: 'JavaScript console code',
+    description: 'The JavaScript console code used for the Amongst Us exercise',
+    url: 'js-console-code',
+  },
+]
+
+export const jsLesson2Resources: Resource[] = [
+  {
+    title: 'Pasta Hut booking page',
+    description: 'The page used for the Pasta Hut exercise',
+    url: 'pasta-hut',
+  },
+  {
+    title: 'JavaScript console code',
+    description: 'The JavaScript console code used for the Pasta Hut exercise',
+    url: 'js-console-code',
+  },
+  {
+    title: 'HTML file code',
+    description: 'The underlying HTML code for the booking page',
+    url: 'html-file-code',
+  },
+  {
+    title: 'JavaScript file code',
+    description: 'Code specially arranged for the JavaScript file being linked into the booking page HTML',
+    url: 'js-file-code',
+  },
+]
+
 export const sqlResources: Resource[] = [
   {
     title: 'Lesson 1',

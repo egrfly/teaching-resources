@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react'
 
-interface PresentationProps {
+interface SlideCollectionProps {
   title: string,
   children?: ReactNode,
 }
 
-const SlideCollection = ({title, children}: PresentationProps) => {
+const SlideCollection = ({title, children}: SlideCollectionProps) => {
   return (
     <section>
       <h4>{title}</h4>

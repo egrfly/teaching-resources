@@ -471,3 +471,17 @@ export const limitExercises: Exercise[] = [
     solution: "  SELECT p.department,\n         SUM(p.stock)\n    FROM products AS p\nGROUP BY p.department\nORDER BY SUM(p.stock) DESC\n   LIMIT 3;",
   },
 ]
+
+export const nonKeyConstraintExercises: Exercise[] = [
+  {
+    question: "",
+    solution: "",
+  },
+]
+
+export const keyConstraintExercises: Exercise[] = [
+  {
+    question: "",
+    solution: "",
+  },
+]

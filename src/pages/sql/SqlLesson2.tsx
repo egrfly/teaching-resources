@@ -212,9 +212,10 @@ const SqlLesson2 = () => {
             <li><code>FLOAT</code> &ndash; any numbers (not necessarily whole)</li>
             <li><code>DECIMAL(n, d)</code> &ndash; any numbers (not necessarily whole) up to <code>n</code> digits long, of which up to <code>d</code> after the decimal place</li>
             <li><code>BOOLEAN</code> &ndash; one of two values, <code>TRUE</code> (1) or <code>FALSE</code> (0)</li>
+            <li><code>DATE</code> &ndash; dates without time information</li>
+            <li><code>DATETIME</code> &ndash; dates with time information</li>
           </ul>
-          <p>Many SQL dialects also have specialised types like <code>DATE</code>, <code>TIME</code> and <code>DATETIME</code> (MySQL would be an example, whereas SQLite doesn't have these).</p>
-          <p>In fact, SQLite actually treats a lot of these data types the same internally, so the differences between <code>CHAR</code>/<code>VARCHAR</code>/<code>TEXT</code> or <code>FLOAT</code>/<code>DECIMAL</code> are purely cosmetic. In database engines like MySQL, these differences have real meaning.</p>
+          <p>In fact, SQLite actually treats a lot of these data types the same internally, so the differences between <code>CHAR</code>/<wbr /><code>VARCHAR</code>/<wbr /><code>TEXT</code> and <code>FLOAT</code>/<wbr /><code>DECIMAL</code>/<wbr /><code>BOOLEAN</code>/<wbr /><code>DATE</code>/<wbr /><code>DATETIME</code> are purely cosmetic. In database engines like MySQL, these differences have real meaning.</p>
         </Slide>
         <Slide title="Example">
           <p>Create a table for instructors (with a name, stream, season and year)</p>

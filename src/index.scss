@@ -2,6 +2,7 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
 @import './style/codemirror-customisation.scss';
+@import './style/js-lessons.scss';
 @import './style/loader.scss';
 @import './style/resource-pages.scss';
 @import './style/reveal-customisation.scss';
@@ -19,7 +20,7 @@ html, body, #root {
   transition: transform 0.2s;
 
   &:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
 }
 

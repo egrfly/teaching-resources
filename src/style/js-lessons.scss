@@ -1,0 +1,38 @@
+@import "~@fontsource/amatic-sc";
+
+$bg-amongst-us: #111;
+
+.amongst-us {
+  background-color: $bg-amongst-us;
+
+  main {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .logo-heading {
+    line-height: 0.8;
+    font-family: 'Amatic SC', monospace;
+    text-shadow: 0 0 5px $bg-amongst-us;
+  }
+
+  .card {
+    box-shadow: 0 0 5px $light;
+  }
+
+  .form-control:focus, .custom-select:focus, .form-check-input:focus {
+    border-color: $primary !important;
+  }
+
+  .particles-wrapper {
+    opacity: 0;
+    transition: opacity 4s;
+
+    &.loaded {
+      opacity: 1;
+    }
+  }
+}
