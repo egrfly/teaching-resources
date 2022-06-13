@@ -36,8 +36,8 @@ const AmongstUs = () => {
   }, [])
 
   return (
-    <div className="amongst-us d-flex justify-content-center align-items-center h-100">
-      <main className="text-light py-5">
+    <div className="amongst-us d-flex justify-content-center align-items-center">
+      <main className="text-light py-5 mx-auto">
         <h1 className="logo-heading display-2 text-center mb-5">Amongst Us</h1>
         <div className="card bg-dark border-light">
           <h5 className="card-header text-center bg-primary border-light text-dark">Create an account</h5>
