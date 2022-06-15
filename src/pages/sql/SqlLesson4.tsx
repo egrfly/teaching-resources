@@ -3,6 +3,10 @@ import ExerciseSlides from '../../components/ExerciseSlides'
 import Presentation from "../../components/Presentation"
 import Slide from '../../components/Slide'
 import SlideCollection from '../../components/SlideCollection'
+import {
+  nonKeyConstraintExercises,
+  keyConstraintExercises,
+} from '../../data/exerciseManagement/sqlExerciseManagement'
 
 const SqlLesson4 = () => {
   return (
@@ -73,7 +77,7 @@ const SqlLesson4 = () => {
             <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO drivers\n       (name, age, car_reg)\nVALUES ('Sarah', 17, 'AB21 CDE');`} />
           </div>
         </Slide>
-        <ExerciseSlides title="Non-key constraints" ordinal="A" exercises={[]} />
+        <ExerciseSlides title="Non-key constraints" ordinal="A" exercises={nonKeyConstraintExercises} />
       </SlideCollection>
 
       <SlideCollection title="Key constraints">
@@ -99,9 +103,9 @@ const SqlLesson4 = () => {
           </div>
         </Slide>
         <Slide title="The PRIMARY KEY constraint">
-          <p>We can have as many unique keys as we like, but we are also able to specify a main unique identifier column, the <strong>primary key</strong>.</p>
-          <p>Primary keys are unique, not <code>NULL</code>, and are often (but by no means always) integers.</p>
-          <p>Upon table creation, either after the data type declaration or at the end of the table definition.</p>
+          <p>We can have as many unique keys as we like, but we are also able to specify a main unique identifier, the <strong>primary key</strong>.</p>
+          <p>Primary keys are unique, not <code>NULL</code>, and are often (but by no means always) integers. They can be applied to a single column or a combination of columns.</p>
+          <p>Upon table creation, if we want to create a primary key, we can use a <code>PRIMARY KEY</code> constraint, either after the data type declaration or at the end of the table definition.</p>
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE,\n\n  PRIMARY KEY (column_name)\n);`} />
         </Slide>
         <Slide title="Example">
@@ -111,11 +115,18 @@ const SqlLesson4 = () => {
           </div>
         </Slide>
         <Slide title="The FOREIGN KEY constraint">
-          <p>When inserting data into a table, the default behaviour is to allow duplicate data in columns.</p>
-          <p>However, we may wish to restrict the data being inserted into a particular column to unique values only.</p>
-          <p>Upon table creation, .</p>
+          <p>When inserting data into a table, we may wish to restrict the data being inserted into a particular column to values present in a key column of another table only.</p>
+          <p>To achieve this, we would specify a <strong>foreign key</strong>, indicating that the column depends on a key in a different (foreign) table. This is the first constraint we have seen which determines a relationship between separate tables.</p>
+          <p>Upon table creation, if we want to specify a foreign key, we can use a <code>FOREIGN KEY</code> constraint, typically at the end of the table definition.</p>
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE,\n\n  PRIMARY KEY (column_name)\n);\n\nCREATE TABLE another_table_name (\n  another_column_name TYPE,\n\n  FOREIGN KEY (another_column_name) REFERENCES table_name (column_name)\n);`} />
         </Slide>
+        <Slide title="Example">
+          <div className="d-flex dual-code-text-area">
+            <CodeTextArea mode="demo" exampleCode={`CREATE TABLE pizzas (\n  name VARCHAR(20) UNIQUE,\n  price DECIMAL(4, 2)\n);\n\nCREATE TABLE orders (\n  reference INTEGER,\n  pizza VARCHAR(20),\n\n  PRIMARY KEY (reference),\n  FOREIGN KEY (pizza) REFERENCES pizzas (name)\n);`} />
+            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO pizzas\n       (name, price)\nVALUES ('Margherita', 13.99),\n       ('Vegetable', 14.99),\n       ('Hawaiian', 15.99);\n\nINSERT\n  INTO orders\n       (reference, pizza)\nVALUES (12345, 'Pepperoni');`} />
+          </div>
+        </Slide>
+        <ExerciseSlides title="Key constraints" ordinal="B" exercises={keyConstraintExercises} />
       </SlideCollection>
 
     </Presentation>
