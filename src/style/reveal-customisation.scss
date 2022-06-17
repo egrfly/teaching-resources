@@ -1,5 +1,5 @@
 .reveal {
-  font-size: 28px;
+  font-size: 25px;
 
   .slides {
     width: 95% !important;
@@ -35,12 +35,12 @@
 
 @include media-breakpoint-down(md) {
   .reveal {
-    font-size: 24px;
+    font-size: 20px;
   }
 }
 
 @include media-breakpoint-down(sm) {
   .reveal {
-    font-size: 18px;
+    font-size: 15px;
   }
 }

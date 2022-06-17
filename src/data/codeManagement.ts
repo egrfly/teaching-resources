@@ -3,8 +3,8 @@ export const runSqlCode = (code: string,
                            setError: (error: string) => void,
                            setHeaderRow: (row: string[] | null) => void,
                            setRows: (rows: string[][] | null) => void) => {
-  const commands = ['PRAGMA foreign_keys = ON;'].concat(...code.split(';')
-                                                .filter(command => command.trim()))
+  db.run('PRAGMA foreign_keys = ON;')
+  const commands = code.split(';').filter(command => command.trim())
   for (const command of commands) {
     const resultHeaderRow: string[] = []
     const resultRows: string[][] = []

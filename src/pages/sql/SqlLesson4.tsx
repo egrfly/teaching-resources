@@ -48,6 +48,7 @@ const SqlLesson4 = () => {
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE NOT NULL\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when we violate a <code>NOT NULL</code> constraint?</p>
           <div className="d-flex dual-code-text-area">
             <CodeTextArea mode="demo" exampleCode={`CREATE TABLE customers (\n  name VARCHAR(50) NOT NULL,\n  most_recent_order DATE\n);`} />
             <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO customers\n       (most_recent_order)\nVALUES (20220610);`} />
@@ -60,9 +61,10 @@ const SqlLesson4 = () => {
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE DEFAULT value\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when a <code>DEFAULT</code> constraint is called upon?</p>
           <div className="d-flex dual-code-text-area">
             <CodeTextArea mode="demo" exampleCode={`CREATE TABLE pets (\n  name VARCHAR(50) NOT NULL,\n  species VARCHAR(20) NOT NULL DEFAULT 'Dog'\n);`} />
-            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO pets\n       (name)\nVALUES ('Spot');`} />
+            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO pets\n       (name)\nVALUES ('Spot');\n\nSELECT *\n  FROM pets;`} />
           </div>
         </Slide>
         <Slide title="The CHECK constraint">
@@ -72,6 +74,7 @@ const SqlLesson4 = () => {
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE,\n  another_column_name TYPE,\n\n  CHECK (column_name > value)\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when we violate a <code>CHECK</code> constraint?</p>
           <div className="d-flex dual-code-text-area">
             <CodeTextArea mode="demo" exampleCode={`CREATE TABLE drivers (\n  name VARCHAR(50) NOT NULL,\n  age INTEGER NOT NULL,\n  car_reg VARCHAR(8) NOT NULL,\n\n  CHECK (age >= 18)\n);`} />
             <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO drivers\n       (name, age, car_reg)\nVALUES ('Sarah', 17, 'AB21 CDE');`} />
@@ -97,6 +100,7 @@ const SqlLesson4 = () => {
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE UNIQUE\n);\n\nCREATE TABLE another_table_name (\n  another_column_name TYPE,\n\n  UNIQUE (another_column_name)\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when we violate a <code>UNIQUE</code> constraint?</p>
           <div className="d-flex dual-code-text-area">
             <CodeTextArea mode="demo" exampleCode={`CREATE TABLE users (\n  name VARCHAR(50) NOT NULL,\n  email VARCHAR(255) NOT NULL,\n\n  UNIQUE (email)\n);`} />
             <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO users\n       (name, email)\nVALUES ('Emily', 'someone@somewhere.com'),\n       ('Sarah', 'someone@somewhere.com');`} />
@@ -105,13 +109,15 @@ const SqlLesson4 = () => {
         <Slide title="The PRIMARY KEY constraint">
           <p>We can have as many unique keys as we like, but we are also able to specify a main unique identifier, the <strong>primary key</strong>.</p>
           <p>Primary keys are unique, not <code>NULL</code>, and are often (but by no means always) integers. They can be applied to a single column or a combination of columns.</p>
+          <p><em>Note: in SQLite, due to an early bug, <code>NULL</code> values are sometimes allowed in primary key columns. This is not the case in other SQL dialects like MySQL.</em></p>
           <p>Upon table creation, if we want to create a primary key, we can use a <code>PRIMARY KEY</code> constraint, either after the data type declaration or at the end of the table definition.</p>
-          <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE,\n\n  PRIMARY KEY (column_name)\n);`} />
+          <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE PRIMARY KEY\n);\n\nCREATE TABLE another_table_name (\n  another_column_name TYPE,\n\n  PRIMARY KEY (another_column_name)\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when we violate a <code>PRIMARY KEY</code> constraint?</p>
           <div className="d-flex dual-code-text-area">
-            <CodeTextArea mode="demo" exampleCode={`CREATE TABLE library_cards (\n  number INTEGER,\n  name VARCHAR(50) NOT NULL,\n\n  PRIMARY KEY (number)\n);`} />
-            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO library_cards\n       (number, name)\nVALUES (123, 'Emily'),\n       (123, 'Sarah'),\n       (NULL, 'Elaine');`} />
+            <CodeTextArea mode="demo" exampleCode={`CREATE TABLE library_cards (\n  number CHAR(6),\n  name VARCHAR(50) NOT NULL,\n\n  PRIMARY KEY (number)\n);`} />
+            <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO library_cards\n       (number, name)\nVALUES ('E12345', 'Emily'),\n       ('S65432', 'Sarah'),\n       ('E12345', 'Elaine');`} />
           </div>
         </Slide>
         <Slide title="The FOREIGN KEY constraint">
@@ -121,6 +127,7 @@ const SqlLesson4 = () => {
           <CodeTextArea mode="syntax" exampleCode={`CREATE TABLE table_name (\n  column_name TYPE,\n\n  PRIMARY KEY (column_name)\n);\n\nCREATE TABLE another_table_name (\n  another_column_name TYPE,\n\n  FOREIGN KEY (another_column_name) REFERENCES table_name (column_name)\n);`} />
         </Slide>
         <Slide title="Example">
+          <p>What happens when we violate a <code>FOREIGN KEY</code> constraint?</p>
           <div className="d-flex dual-code-text-area">
             <CodeTextArea mode="demo" exampleCode={`CREATE TABLE pizzas (\n  name VARCHAR(20) UNIQUE,\n  price DECIMAL(4, 2)\n);\n\nCREATE TABLE orders (\n  reference INTEGER,\n  pizza VARCHAR(20),\n\n  PRIMARY KEY (reference),\n  FOREIGN KEY (pizza) REFERENCES pizzas (name)\n);`} />
             <CodeTextArea mode="demo" exampleCode={`INSERT\n  INTO pizzas\n       (name, price)\nVALUES ('Margherita', 13.99),\n       ('Vegetable', 14.99),\n       ('Hawaiian', 15.99);\n\nINSERT\n  INTO orders\n       (reference, pizza)\nVALUES (12345, 'Pepperoni');`} />

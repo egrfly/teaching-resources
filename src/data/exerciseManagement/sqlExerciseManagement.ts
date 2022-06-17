@@ -474,14 +474,31 @@ export const limitExercises: Exercise[] = [
 
 export const nonKeyConstraintExercises: Exercise[] = [
   {
-    question: "",
-    solution: "",
+    question: "Create a table called employees with three columns: name (VARCHAR, cannot be NULL), working_pattern (VARCHAR, must be either full-time or part-time, defaulting to part-time) and hourly_wage (DECIMAL, must be at least £10.00). Try some INSERT statements to see if the constraints are being applied correctly",
+    solution: "CREATE TABLE employees (\n  name VARCHAR(50) NOT NULL,\n  working_pattern VARCHAR(20) DEFAULT 'part-time',\n  hourly_wage DECIMAL(5, 2),\n\n  CHECK (working_pattern IN ('full-time', 'part-time')),\n  CHECK (hourly_wage >= 10.00)\n);",
+    secondaryCode: "-- Example INSERT statement\nINSERT\n  INTO employees\n       (name, working_pattern, hourly_wage)\nVALUES ('Laura', 'full-time', 21.00);",
+  },
+  {
+    question: "Create a table called tallest_trees with four columns: species (VARCHAR, cannot be NULL), type (VARCHAR, must be either Conifer or Flowering Plant, defaulting to Conifer), continent (VARCHAR, must be one of Asia, Africa, Europe, North America, South America or Oceania) and height (FLOAT, cannot be NULL or under 80 metres). Try some INSERT statements to see if the constraints are being applied correctly",
+    solution: "CREATE TABLE tallest_trees (\n  species VARCHAR(20) NOT NULL,\n  type VARCHAR(20) DEFAULT 'Conifer',\n  continent VARCHAR(20),\n  height FLOAT NOT NULL,\n\n  CHECK (type IN ('Conifer', 'Flowering Plant')),\n  CHECK (continent IN ('Asia', 'Africa', 'Europe', 'North America', 'South America', 'Oceania')),\n  CHECK (height >= 80)\n);",
+    secondaryCode: "-- Example INSERT statement\nINSERT\n  INTO tallest_trees\n       (species, type, continent, height)\nVALUES ('Coast Redwood', 'Conifer', 'North America', 115.92),\n       ('Mountain Ash', 'Flowering Plant', 'Oceania', 100.5);",
+  },
+  {
+    question: "Create a table called train_tickets with four columns, all set to NOT NULL: booking_reference (INTEGER), origin_station_code (CHAR(3)), destination_station_code (also CHAR(3), cannot be the same as the value for origin_station_code) and tier (VARCHAR, must be either Standard or Premium, defaulting to Standard). Try some INSERT statements to see if the constraints are being applied correctly",
+    solution: "CREATE TABLE train_tickets (\n  booking_reference INTEGER NOT NULL,\n  origin_station_code CHAR(3) NOT NULL,\n  destination_station_code CHAR(3) NOT NULL,\n  tier VARCHAR(20) NOT NULL DEFAULT 'Standard',\n\n  CHECK (origin_station_code != destination_station_code),\n  CHECK (tier IN ('Standard', 'Premium'))\n);",
+    secondaryCode: "-- Example INSERT statement\nINSERT\n  INTO train_tickets\n       (booking_reference, origin_station_code, destination_station_code, tier)\nVALUES (12345, 'MYB', 'BHM', 'Premium');",
   },
 ]
 
 export const keyConstraintExercises: Exercise[] = [
   {
-    question: "",
-    solution: "",
+    question: "Create two tables, one called users and one called posts. The users table should have two columns: id (INTEGER, primary key) and email (VARCHAR, unique, cannot be null). The posts table should have three columns: user_id (INTEGER, foreign key referencing the id column of the users table), content (VARCHAR) and timestamp (DATETIME). Try some INSERT statements to see if the constraints are being applied correctly",
+    solution: "CREATE TABLE users (\n  id INTEGER,\n  email VARCHAR(255) NOT NULL UNIQUE,\n\n  PRIMARY KEY (id)\n);\n\nCREATE TABLE posts (\n  user_id INTEGER NOT NULL,\n  content VARCHAR(255),\n  timestamp DATETIME,\n\n  FOREIGN KEY (user_id) REFERENCES users (id)\n);",
+    secondaryCode: "INSERT\n  INTO users\n       (id, email)\nVALUES (1, 'someone@gmail.com'),\n       (2, 'someone.else@gmail.com');\n\nINSERT\n  INTO posts\n       (user_id, content, timestamp)\nVALUES (1, 'Follow your heart', DATETIME('now', 'localtime')),\n       (1, 'Out of control', DATETIME('now', 'localtime')),\n       (2, 'What in heck', DATETIME('now', 'localtime'));",
+  },
+  {
+    question: "Create two tables, one called households and one called annual_bills. The households table should have two columns: id (INTEGER, primary key) and address (VARCHAR, cannot be null, unique). The annual_bills table should have three columns: household_id (INTEGER, foreign key referencing the id column of the households table), year (INTEGER) and amount (DECIMAL). Any household_id/year combination should be unique. Try some insert statements to see if the constraints are being applied correctly",
+    solution: "CREATE TABLE households (\n  id INTEGER,\n  address VARCHAR(255) NOT NULL UNIQUE,\n\n  PRIMARY KEY (id)\n);\n\nCREATE TABLE annual_bills (\n  household_id INTEGER,\n  year INTEGER,\n  amount DECIMAL(6, 2),\n\n  FOREIGN KEY (household_id) REFERENCES households (id),\n  UNIQUE (household_id, year)\n);",
+    secondaryCode: "INSERT\n  INTO households\n       (id, address)\nVALUES (1, '10 Main Street, AB1 2CD'),\n       (2, '123 Other Lane, EF3 4GH');\n\nINSERT\n  INTO annual_bills\n       (household_id, year, amount)\nVALUES (1, 2021, 120.00),\n       (1, 2022, 144.00),\n       (2, 2022, 132.00);",
   },
 ]

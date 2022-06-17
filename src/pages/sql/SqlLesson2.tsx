@@ -23,7 +23,7 @@ const SqlLesson2 = () => {
         </Slide>
         <Slide title="Lesson plan">
           <ol>
-            <li>Data insertion, update and deletion</li>
+            <li>Data insertion</li>
             <li>Data update</li>
             <li>Data deletion</li>
             <li>Table creation</li>

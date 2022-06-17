@@ -1,12 +1,12 @@
-@import './style/variables.scss';
+@import './variables.scss';
 @import '~bootstrap/scss/bootstrap.scss';
 
-@import './style/codemirror-customisation.scss';
-@import './style/js-lessons.scss';
-@import './style/loader.scss';
-@import './style/resource-pages.scss';
-@import './style/reveal-customisation.scss';
-@import './style/vscode-dark.scss';
+@import './codemirror-customisation.scss';
+@import './js-lessons.scss';
+@import './loader.scss';
+@import './resource-pages.scss';
+@import './reveal-customisation.scss';
+@import './vscode-dark.scss';
 
 html, body, #root {
   height: 100%;
