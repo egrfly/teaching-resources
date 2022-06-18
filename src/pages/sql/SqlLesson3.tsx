@@ -1,3 +1,4 @@
+import React from 'react'
 import CodeTextArea from '../../components/CodeTextArea'
 import ExerciseSlides from '../../components/ExerciseSlides'
 import Presentation from '../../components/Presentation'

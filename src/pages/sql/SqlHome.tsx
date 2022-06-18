@@ -1,3 +1,4 @@
+import React from 'react'
 import ResourceCollection from '../../components/ResourceCollection'
 import { sqlResources } from '../../data/resourceManagement'
 

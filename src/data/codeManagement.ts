@@ -1,8 +1,8 @@
 export const runSqlCode = (code: string,
                            db: any,
-                           setError: (error: string) => void,
-                           setHeaderRow: (row: string[] | null) => void,
-                           setRows: (rows: string[][] | null) => void) => {
+                           setError: (error: string | undefined) => void,
+                           setHeaderRow: (row: string[] | undefined) => void,
+                           setRows: (rows: string[][] | undefined) => void) => {
   db.run('PRAGMA foreign_keys = ON;')
   const commands = code.split(';').filter(command => command.trim())
   for (const command of commands) {
@@ -22,8 +22,8 @@ export const runSqlCode = (code: string,
       setRows(resultRows)
     } catch (e) {
       setError(String(e))
-      setHeaderRow(null)
-      setRows(null)
+      setHeaderRow(undefined)
+      setRows(undefined)
       break
     }
   }

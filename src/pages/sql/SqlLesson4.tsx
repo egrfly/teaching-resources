@@ -1,12 +1,24 @@
+import React from 'react'
 import CodeTextArea from '../../components/CodeTextArea'
 import ExerciseSlides from '../../components/ExerciseSlides'
 import Presentation from "../../components/Presentation"
+import ResultSetTable from '../../components/ResultSetTable'
 import Slide from '../../components/Slide'
 import SlideCollection from '../../components/SlideCollection'
 import {
   nonKeyConstraintExercises,
   keyConstraintExercises,
 } from '../../data/exerciseManagement/sqlExerciseManagement'
+import {
+  nonNormalisedStudentMarksData,
+  technicalFirstNormalFormStudentMarksData,
+  trueFirstNormalFormStudentMarksData,
+  secondNormalFormMarksData,
+  secondNormalFormStudentsData,
+  thirdNormalFormMarksData,
+  thirdNormalFormStudentsData,
+  thirdNormalFormClassesData,
+} from '../../data/exampleManagement/sqlExampleManagement'
 
 const SqlLesson4 = () => {
   return (
@@ -134,6 +146,99 @@ const SqlLesson4 = () => {
           </div>
         </Slide>
         <ExerciseSlides title="Key constraints" ordinal="B" exercises={keyConstraintExercises} />
+      </SlideCollection>
+
+      <SlideCollection title="Data normalisation">
+        <Slide title="First normal form">
+          <p>There are various subtly different ways of defining 1NF (first normal form), but at this level, the key property to look for is the <strong>atomicity</strong> of a table: in any given row, each column should contain a single piece of information (or a <code>NULL</code>). There should also not be the same column, or essentially the same column, appearing multiple times.</p>
+          <p>The main advantage of 1NF is that it makes table lookups much easier, since it doesn't become necessary to pick apart individual columns, or check multiple columns, to find a single piece of information while scanning a table.</p>
+          <p>We will see an example of how to transform a table so that it adheres to 1NF.</p>
+        </Slide>
+        <Slide title="First normal form">
+          <p>In this example, we will imagine that no two students have the same name, so we can use the student name to uniquely identify any given row. (In practice, having something like a student ID would be more robust.)</p>
+          <p>This table does not adhere to 1NF because the subjects and marks columns are each allowed to contain multiple data values. This would make it quite complex for a DB engine to look up a student's mark for a particular subject (although it may be easy for a human).</p>
+          <hr />
+          <p>Table <code>students_and_marks</code>, with <code>(name)</code> as primary key</p>
+          <ResultSetTable headerRow={nonNormalisedStudentMarksData.headerRow} rows={nonNormalisedStudentMarksData.rows} />
+        </Slide>
+        <Slide title="First normal form">
+          <p>This example is an improvement on the last one, because each column of the table is now designed to contain only one data value per row.</p>
+          <p>The spirit of 1NF is still not quite being followed, though, since we have separate columns for subject_1 and subject_2, which contain essentially the same information. It would still be quite complex for a DB engine to look up a student's mark for a particular subject, since it would have to search both columns.</p>
+          <p>The issues with this arrangement would get worse if a student wanted to take more than two subjects in future &ndash; it is not very <strong>extensible</strong>.</p>
+          <hr />
+          <p>Table <code>student_and_marks</code>, with <code>(name)</code> as primary key</p>
+          <ResultSetTable headerRow={technicalFirstNormalFormStudentMarksData.headerRow} rows={technicalFirstNormalFormStudentMarksData.rows} />
+        </Slide>
+        <Slide title="First normal form">
+          <p>The standard solution would be to have one column for subjects and one for marks, and to spread separate subject-mark combinations across different rows. All the other information is kept, meaning that students who took multiple subjects now have multiple rows.</p>
+          <p>Since student names can now be duplicated, the name/subject combination is needed to uniquely define a row.</p>
+          <p>The duplication of data isn't ideal, but it is now much easier to look up a student's mark for a particular subject. Moving towards 2NF will help eliminate some duplication.</p>
+          <hr />
+          <p>Table <code>student_and_marks</code>, with <code>(name, subject)</code> as primary key</p>
+          <ResultSetTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} rows={trueFirstNormalFormStudentMarksData.rows} />
+        </Slide>
+        <Slide title="Second normal form">
+          <p>Adherence to 1NF is a precondition for 2NF (second normal form). The key additional purpose of 2NF is to disallow <strong>partial dependencies</strong>. A partial dependency occurs when we have a composite key (key made up of multiple columns) along with any other columns that depend on only part of the key.</p>
+          <p>The main advantage of 2NF is that it reduces data duplication significantly, making data update much more straightforward and reliable.</p>
+          <p>We will see an example of how to transform a 1NF table so that it adheres to 2NF.</p>
+        </Slide>
+        <Slide title="Second normal form">
+          <p>In the 1NF form of our original example, we had a table with the name/subject combinations as a key. However, a student's class and class primary marker depended only on the who they were (the name part of the key), with no dependency on the subject part of the key. The mark column, on the other hand, depended on both parts &ndash; to find a particular mark, we would need to know both for whom and for which subject.</p>
+          <hr />
+          <p>Table <code>student_and_marks</code>, with <code>(name, subject)</code> as primary key</p>
+          <ResultSetTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} rows={trueFirstNormalFormStudentMarksData.rows} />
+        </Slide>
+        <Slide title="Second normal form">
+          <p>In order to remove the partial dependencies, we should split the data across two separate tables. The marks can stay in the first table, since these are fully dependent on the existing name/subject key, as discussed. However, since the other columns only depend on the student name, we can extract them into a new table with the student name as the sole key.</p>
+          <hr />
+          <div className="row">
+            <div className="col">
+              <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
+              <ResultSetTable headerRow={secondNormalFormMarksData.headerRow} rows={secondNormalFormMarksData.rows} />
+            </div>
+            <div className="col">
+              <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
+              <ResultSetTable headerRow={secondNormalFormStudentsData.headerRow} rows={secondNormalFormStudentsData.rows} />
+            </div>
+          </div>
+        </Slide>
+        <Slide title="Third normal form">
+          <p>Adherence to 2NF is a precondition for 3NF (second normal form). The key additional purpose of 3NF is to disallow <strong>transitive dependencies</strong>. A transitive dependency occurs when we have a non-key column that depends on another non-key column, rather than depending on a key directly.</p>
+          <p>The main advantage of 3NF, like 2NF, is that it reduces data duplication significantly, making data update much more straightforward and reliable.</p>
+          <p>We will see an example of how to transform a 2NF table so that it adheres to 3NF.</p>
+        </Slide>
+        <Slide title="Third normal form">
+          <p>In the 2NF form of our example, the marks table is actually already in 3NF, since there is only one non-key column (mark), which means there is no opportunity for a transitive dependency to arise.</p>
+          <p>The students table, however, is not in 3NF yet. This is because the class primary marker (not a key) depends solely on the class a student is in (also not a key), rather than directly on the student name (the only key in the table). In other words, we could hide the student name column and still be able to work out the class primary marker for each row, based solely on the class.</p>
+          <hr />
+          <div className="row">
+            <div className="col">
+              <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
+              <ResultSetTable headerRow={secondNormalFormMarksData.headerRow} rows={secondNormalFormMarksData.rows} />
+            </div>
+            <div className="col">
+              <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
+              <ResultSetTable headerRow={secondNormalFormStudentsData.headerRow} rows={secondNormalFormStudentsData.rows} />
+            </div>
+          </div>
+        </Slide>
+        <Slide title="Third normal form">
+          <p>In order to remove the transitive dependency, we should split the student data across two separate tables. The first should contain the student name and class columns, while the class primary marker can be extracted out into a separate classes table with the class as the key.</p>
+          <hr />
+          <div className="row">
+            <div className="col">
+              <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
+              <p>(Unchanged from 2NF version)</p>
+              <ResultSetTable headerRow={thirdNormalFormMarksData.headerRow} rows={thirdNormalFormMarksData.rows} />
+            </div>
+            <div className="col">
+              <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
+              <ResultSetTable headerRow={thirdNormalFormStudentsData.headerRow} rows={thirdNormalFormStudentsData.rows} />
+              <p>Table <code>classes</code>, with <code>(class)</code> as primary key</p>
+              <ResultSetTable headerRow={thirdNormalFormClassesData.headerRow} rows={thirdNormalFormClassesData.rows} />
+            </div>
+          </div>
+        </Slide>
       </SlideCollection>
 
     </Presentation>

@@ -1,3 +1,4 @@
+import React from 'react'
 import ResourceCollection from '../../../components/ResourceCollection'
 import { jsLesson1Resources } from '../../../data/resourceManagement'
 

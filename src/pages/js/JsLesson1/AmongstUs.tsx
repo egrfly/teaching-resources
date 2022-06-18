@@ -32,7 +32,9 @@ const AmongstUs = () => {
   const particlesWrapper = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    particlesWrapper.current?.classList.add("loaded")
+    setImmediate(() => {
+      particlesWrapper.current?.classList.add("loaded")
+    })
   }, [])
 
   return (
