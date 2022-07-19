@@ -21,6 +21,15 @@
 }
 
 .code-mirror-block {
+  position: relative;
+
+  .code-mirror-action {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+  }
+
   .table-spacer {
     height: 10rem;
   }
