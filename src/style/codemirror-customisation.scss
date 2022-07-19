@@ -1,11 +1,11 @@
-@import "~@fontsource/fira-mono";
+@import "~@fontsource/roboto-mono";
 
 .CodeMirror {
   height: unset;
   padding: 1rem;
   border: 1px solid #6c757d;
   border-radius: 0.3rem;
-  font-family: "Fira Mono", monospace;
+  font-family: "Roboto Mono", monospace;
 
   &-lines {
     font-size: 1.25rem;

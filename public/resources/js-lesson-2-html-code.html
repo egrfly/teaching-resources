@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasta Hut | Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+      html {
+        height: 100%;
+        background-color: #000;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      body {
+        min-height: 100%;
+        background-color: #137;
+      }
+      main {
+        position: relative;
+        z-index: 1;
+        width: 90%;
+        max-width: 400px;
+      }
+      .logo-background {
+        width: 12.5rem;
+        height: 12.5rem;
+        box-shadow: 0 0 1px 1px #f8f9fa;
+      }
+      .logo-heading {
+        line-height: 0.8;
+        font-size: 5rem;
+        font-family: 'Caveat', cursive;
+        text-shadow: 0 0 5px #baa;
+        transform: rotate(-5deg) skew(-5deg) translate(-0.375rem, 1.75rem);
+      }
+      hr {
+        border-top-width: 2px;
+        border-top-style: dotted;
+      }
+      .form-control:hover, .form-select:hover, .form-check-input:hover {
+        background-color: rgba(0, 0, 0, 0.03) !important;
+      }
+      .form-control:focus, .form-select:focus, .form-check-input:focus {
+        border-color: #007bff40; 
+        background-color: #fff !important;
+        box-shadow: 0 0 0 0.25rem #007bff40;
+      }
+      .form-check-input:checked {
+        background-color: #007bff !important;
+      }
+    </style>
+  </head>
+  <body class="pasta-hut d-flex justify-content-center align-items-center">
+    <main class="py-5 mx-auto">
+      <div class="logo-background bg-danger border border-light text-light rounded-circle mb-5 mx-auto">
+        <h1 class="logo-heading display-2 text-center mb-0">Pasta &nbsp;Hut</h1>
+      </div>
+      <div class="card bg-light">
+        <h5 class="card-header text-center">Book a table</h5>
+        <div class="card-body">
+          <form action="javascript:void(0);">
+            <div class="form-group mb-4">
+              <label class="form-label" for="nameInput">First name</label>
+              <input class="form-control bg-light" id="nameInput" type="text">
+              <small class="text-danger" id="nameCaption">
+                <!--Please enter your name to make a booking-->
+              </small>
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label" for="dateInput">When would you like to visit?</label>
+              <div class="row g-2">
+                <div class="col-sm mb-sm-2">
+                  <input class="form-control bg-light" id="dateInput" type="date">
+                </div>
+                <div class="col-sm mb-2">
+                  <div class="row g-2">
+                    <div class="col">
+                      <select class="form-select bg-light" id="hourInput">
+                        <option value="" selected disabled hidden>HH</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select class="form-select bg-light" id="minuteInput">
+                        <option value="" selected disabled hidden>MM</option>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <small class="text-danger" id="dateCaption">
+                <!--Please ensure the date entered is not in the past-->
+              </small>
+            </div>
+            <div class="form-group mb-4">
+              <div class="row g-2">
+                <div class="col">
+                  <div class="form-group mb-0">
+                    <label class="form-label" for="numAdultsInput">No. of adults</label>
+                    <input class="form-control bg-light" id="numAdultsInput" type="number">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group mb-0">
+                    <label class="form-label" for="numChildrenInput">No. of children</label>
+                    <input class="form-control bg-light" id="numChildrenInput" type="number">
+                  </div>
+                </div>
+              </div>
+              <small class="text-danger" id="numGuestsCaption">
+                <!--Please contact us by phone to arrange a booking for more than 6 guests-->
+              </small>
+            </div>
+            <div class="form-group mb-4">
+              <label class="form-label" for="phoneInput">Phone</label>
+              <input class="form-control bg-light" id="phoneInput" type="tel">
+              <small class="text-danger" id="phoneCaption">
+                <!--Please enter a valid UK phone number-->
+              </small>
+            </div>
+            <hr class="bg-transparent border-danger opacity-75 my-4">
+            <div class="form-group mb-4">
+              <label class="form-label" for="emailInput">Email <span class="text-muted">(optional)</span></label>
+              <input class="form-control bg-light" id="emailInput" type="email">
+              <small class="text-danger" id="emailCaption">
+                <!--Please ensure the email address you entered is valid-->
+              </small>
+            </div>
+            <div class="form-check mb-4">
+              <input class="form-check-input bg-light" id="newsAndOffersInput" type="checkbox">
+              <label class="form-check-label" for="newsAndOffersInput">Please send me news and offers</label>
+              <small class="d-block text-danger" id="newsAndOffersCaption">
+                <!--Please enter a valid email address to receive news and offers-->
+              </small>
+            </div>
+            <button class="btn btn-danger d-block w-100" id="bookingButton" type="submit">Book now</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <!--Link JS code here-->
+  </body>
+</html>

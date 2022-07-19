@@ -80,7 +80,7 @@ export const sqlResources: Resource[] = [
   },
   {
     title: 'Lesson 4',
-    description: 'Learn how to normalise data, how to use constraints and keys, and how to use joins',
+    description: 'Learn how to use constraints and keys, how to normalise data, and how to use joins',
     url: 'lesson-4',
   },
   {

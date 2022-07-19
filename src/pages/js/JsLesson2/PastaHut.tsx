@@ -5,8 +5,10 @@ const PastaHut = () => {
   const topRightImage = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    bottomLeftImage.current?.classList.add("visible")
-    topRightImage.current?.classList.add("visible")
+    setImmediate(() => {
+      bottomLeftImage.current?.classList.add("visible")
+      topRightImage.current?.classList.add("visible")
+    })
   }, [])
 
   return (

@@ -10,7 +10,7 @@ const NavBar = ({pageTitle}: NavBarProps) => {
     <nav className="navbar navbar-expand navbar-dark bg-secondary text-light">
       <div className="container">
         <span className="navbar-brand">
-          <Link to="/" className="link-light text-decoration-none">Emily's CFG Repository</Link>&ensp;&bull;&ensp;<span className="text-primary">{pageTitle}</span>
+          <Link to="/" className="link-light text-decoration-none">Resources</Link>&ensp;&bull;&ensp;<span className="text-primary">{pageTitle}</span>
         </span>
       </div>
     </nav>
