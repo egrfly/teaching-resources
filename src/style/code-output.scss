@@ -1,0 +1,49 @@
+.output-spacer {
+  height: 14.5rem;
+}
+
+.error-window, .python-output-window {
+  background-color: #1e1e1e;
+
+  .card-body {
+    font-size: 1.25rem;
+    white-space: pre;
+    overflow: auto;
+  }
+}
+
+.error-window .card-body {
+  color: $danger;
+}
+
+.python-output-window .card-body {
+  font-size: 1.25rem;
+  font-family: $font-family-code, monospace;
+  white-space: pre;
+  overflow: auto;
+}
+
+.sql-output-table-wrapper {
+  max-height: 100%;
+  overflow: auto;
+
+  .table {
+    font-size: 1.25rem;
+    white-space: nowrap;
+
+    tbody {
+      background-color: rgba(255, 255, 255, .05);
+    }
+
+    td {
+      border-color: #454d55;
+    }
+
+    th {
+      background-color: #343a40;
+      position: sticky;
+      top: 0;
+      border: none;
+    }
+  }
+}

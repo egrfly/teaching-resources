@@ -1,8 +1,8 @@
 import React from 'react'
-import CodeTextArea from '../../components/CodeTextArea'
+import CodeTextArea from '../../components/CodeTextArea/CodeTextArea'
 import ExerciseSlides from '../../components/ExerciseSlides'
 import Presentation from "../../components/Presentation"
-import ResultSetTable from '../../components/ResultSetTable'
+import SqlOutputTable from '../../components/Output/SqlOutputTable'
 import Slide from '../../components/Slide'
 import SlideCollection from '../../components/SlideCollection'
 import {
@@ -159,7 +159,7 @@ const SqlLesson4 = () => {
           <p>This table does not adhere to 1NF because the subjects and marks columns are each allowed to contain multiple data values. This would make it quite complex for a DB engine to look up a student's mark for a particular subject (although it may be easy for a human).</p>
           <hr />
           <p>Table <code>students_and_marks</code>, with <code>(name)</code> as primary key</p>
-          <ResultSetTable headerRow={nonNormalisedStudentMarksData.headerRow} rows={nonNormalisedStudentMarksData.rows} />
+          <SqlOutputTable headerRow={nonNormalisedStudentMarksData.headerRow} dataRows={nonNormalisedStudentMarksData.dataRows} />
         </Slide>
         <Slide title="First normal form">
           <p>This example is an improvement on the last one, because each column of the table is now designed to contain only one data value per row.</p>
@@ -167,15 +167,15 @@ const SqlLesson4 = () => {
           <p>The issues with this arrangement would get worse if a student wanted to take more than two subjects in future &ndash; it is not very <strong>extensible</strong>.</p>
           <hr />
           <p>Table <code>student_and_marks</code>, with <code>(name)</code> as primary key</p>
-          <ResultSetTable headerRow={technicalFirstNormalFormStudentMarksData.headerRow} rows={technicalFirstNormalFormStudentMarksData.rows} />
+          <SqlOutputTable headerRow={technicalFirstNormalFormStudentMarksData.headerRow} dataRows={technicalFirstNormalFormStudentMarksData.dataRows} />
         </Slide>
         <Slide title="First normal form">
-          <p>The standard solution would be to have one column for subjects and one for marks, and to spread separate subject-mark combinations across different rows. All the other information is kept, meaning that students who took multiple subjects now have multiple rows.</p>
+          <p>The standard solution would be to have one column for subjects and one for marks, and to spread separate subject-mark combinations across different dataRows. All the other information is kept, meaning that students who took multiple subjects now have multiple dataRows.</p>
           <p>Since student names can now be duplicated, the name/subject combination is needed to uniquely define a row.</p>
           <p>The duplication of data isn't ideal, but it is now much easier to look up a student's mark for a particular subject. Moving towards 2NF will help eliminate some duplication.</p>
           <hr />
           <p>Table <code>student_and_marks</code>, with <code>(name, subject)</code> as primary key</p>
-          <ResultSetTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} rows={trueFirstNormalFormStudentMarksData.rows} />
+          <SqlOutputTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} dataRows={trueFirstNormalFormStudentMarksData.dataRows} />
         </Slide>
         <Slide title="Second normal form">
           <p>Adherence to 1NF is a precondition for 2NF (second normal form). The key additional purpose of 2NF is to disallow <strong>partial dependencies</strong>. A partial dependency occurs when we have a composite key (key made up of multiple columns) along with any other columns that depend on only part of the key.</p>
@@ -186,7 +186,7 @@ const SqlLesson4 = () => {
           <p>In the 1NF form of our original example, we had a table with the name/subject combinations as a key. However, a student's class and class primary marker depended only on the who they were (the name part of the key), with no dependency on the subject part of the key. The mark column, on the other hand, depended on both parts &ndash; to find a particular mark, we would need to know both for whom and for which subject.</p>
           <hr />
           <p>Table <code>student_and_marks</code>, with <code>(name, subject)</code> as primary key</p>
-          <ResultSetTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} rows={trueFirstNormalFormStudentMarksData.rows} />
+          <SqlOutputTable headerRow={trueFirstNormalFormStudentMarksData.headerRow} dataRows={trueFirstNormalFormStudentMarksData.dataRows} />
         </Slide>
         <Slide title="Second normal form">
           <p>In order to remove the partial dependencies, we should split the data across two separate tables. The marks can stay in the first table, since these are fully dependent on the existing name/subject key, as discussed. However, since the other columns only depend on the student name, we can extract them into a new table with the student name as the sole key.</p>
@@ -194,11 +194,11 @@ const SqlLesson4 = () => {
           <div className="row">
             <div className="col">
               <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
-              <ResultSetTable headerRow={secondNormalFormMarksData.headerRow} rows={secondNormalFormMarksData.rows} />
+              <SqlOutputTable headerRow={secondNormalFormMarksData.headerRow} dataRows={secondNormalFormMarksData.dataRows} />
             </div>
             <div className="col">
               <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
-              <ResultSetTable headerRow={secondNormalFormStudentsData.headerRow} rows={secondNormalFormStudentsData.rows} />
+              <SqlOutputTable headerRow={secondNormalFormStudentsData.headerRow} dataRows={secondNormalFormStudentsData.dataRows} />
             </div>
           </div>
         </Slide>
@@ -214,11 +214,11 @@ const SqlLesson4 = () => {
           <div className="row">
             <div className="col">
               <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
-              <ResultSetTable headerRow={secondNormalFormMarksData.headerRow} rows={secondNormalFormMarksData.rows} />
+              <SqlOutputTable headerRow={secondNormalFormMarksData.headerRow} dataRows={secondNormalFormMarksData.dataRows} />
             </div>
             <div className="col">
               <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
-              <ResultSetTable headerRow={secondNormalFormStudentsData.headerRow} rows={secondNormalFormStudentsData.rows} />
+              <SqlOutputTable headerRow={secondNormalFormStudentsData.headerRow} dataRows={secondNormalFormStudentsData.dataRows} />
             </div>
           </div>
         </Slide>
@@ -229,13 +229,13 @@ const SqlLesson4 = () => {
             <div className="col">
               <p>Table <code>marks</code>, with <code>(name, subject)</code> as primary key</p>
               <p>(Unchanged from 2NF version)</p>
-              <ResultSetTable headerRow={thirdNormalFormMarksData.headerRow} rows={thirdNormalFormMarksData.rows} />
+              <SqlOutputTable headerRow={thirdNormalFormMarksData.headerRow} dataRows={thirdNormalFormMarksData.dataRows} />
             </div>
             <div className="col">
               <p>Table <code>students</code>, with <code>(name)</code> as primary key</p>
-              <ResultSetTable headerRow={thirdNormalFormStudentsData.headerRow} rows={thirdNormalFormStudentsData.rows} />
+              <SqlOutputTable headerRow={thirdNormalFormStudentsData.headerRow} dataRows={thirdNormalFormStudentsData.dataRows} />
               <p>Table <code>classes</code>, with <code>(class)</code> as primary key</p>
-              <ResultSetTable headerRow={thirdNormalFormClassesData.headerRow} rows={thirdNormalFormClassesData.rows} />
+              <SqlOutputTable headerRow={thirdNormalFormClassesData.headerRow} dataRows={thirdNormalFormClassesData.dataRows} />
             </div>
           </div>
         </Slide>

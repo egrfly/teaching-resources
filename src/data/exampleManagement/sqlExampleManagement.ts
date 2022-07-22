@@ -1,8 +1,8 @@
-import ResultSet from '../../models/ResultSet'
+import SqlOutput from '../../models/SqlOutput'
 
-export const nonNormalisedStudentMarksData: ResultSet = {
+export const nonNormalisedStudentMarksData: SqlOutput = {
   headerRow: ['name', 'subjects', 'marks', 'class', 'class_primary_marker'],
-  rows: [
+  dataRows: [
     ['Ali',   'Python',      '100',      'fullstack-1', 'Anna'],
     ['Lana',  'Python',      '101',      'fullstack-1', 'Anna'],
     ['Ella',  'Python',      '102',      'fullstack-1', 'Anna'],
@@ -18,9 +18,9 @@ export const nonNormalisedStudentMarksData: ResultSet = {
   ],
 }
 
-export const technicalFirstNormalFormStudentMarksData: ResultSet = {
+export const technicalFirstNormalFormStudentMarksData: SqlOutput = {
   headerRow: ['name', 'subject_1', 'subject_1_mark', 'subject_2', 'subject_2_mark', 'class', 'class_primary_marker'],
-  rows: [
+  dataRows: [
     ['Ali',   'Python', '100', '',       '',    'fullstack-1', 'Anna'],
     ['Lana',  'Python', '101', '',       '',    'fullstack-1', 'Anna'],
     ['Ella',  'Python', '102', '',       '',    'fullstack-1', 'Anna'],
@@ -36,9 +36,9 @@ export const technicalFirstNormalFormStudentMarksData: ResultSet = {
   ],
 }
 
-export const trueFirstNormalFormStudentMarksData: ResultSet = {
+export const trueFirstNormalFormStudentMarksData: SqlOutput = {
   headerRow: ['name', 'subject', 'mark', 'class', 'class_primary_marker'],
-  rows: [
+  dataRows: [
     ['Ali',   'Python', '100',      'fullstack-1', 'Anna'],
     ['Lana',  'Python', '101',      'fullstack-1', 'Anna'],
     ['Ella',  'Python', '102',      'fullstack-1', 'Anna'],
@@ -58,9 +58,9 @@ export const trueFirstNormalFormStudentMarksData: ResultSet = {
   ],
 }
 
-export const secondNormalFormMarksData: ResultSet = {
+export const secondNormalFormMarksData: SqlOutput = {
   headerRow: ['name', 'subject', 'mark'],
-  rows: [
+  dataRows: [
     ['Ali',   'Python', '100'],
     ['Lana',  'Python', '101'],
     ['Ella',  'Python', '102'],
@@ -80,9 +80,9 @@ export const secondNormalFormMarksData: ResultSet = {
   ],
 }
 
-export const secondNormalFormStudentsData: ResultSet = {
+export const secondNormalFormStudentsData: SqlOutput = {
   headerRow: ['name', 'class', 'class_primary_marker'],
-  rows: [
+  dataRows: [
     ['Ali',   'fullstack-1', 'Anna'],
     ['Lana',  'fullstack-1', 'Anna'],
     ['Ella',  'fullstack-1', 'Anna'],
@@ -98,11 +98,11 @@ export const secondNormalFormStudentsData: ResultSet = {
   ],
 }
 
-export const thirdNormalFormMarksData: ResultSet = secondNormalFormMarksData
+export const thirdNormalFormMarksData: SqlOutput = secondNormalFormMarksData
 
-export const thirdNormalFormStudentsData: ResultSet = {
+export const thirdNormalFormStudentsData: SqlOutput = {
   headerRow: ['name', 'class'],
-  rows: [
+  dataRows: [
     ['Ali',   'fullstack-1'],
     ['Lana',  'fullstack-1'],
     ['Ella',  'fullstack-1'],
@@ -118,9 +118,9 @@ export const thirdNormalFormStudentsData: ResultSet = {
   ],
 }
 
-export const thirdNormalFormClassesData: ResultSet = {
+export const thirdNormalFormClassesData: SqlOutput = {
   headerRow: ['class', 'primary_marker'],
-  rows: [
+  dataRows: [
     ['fullstack-1', 'Anna'],
     ['software-2',  'Christine'],
     ['data-1',      'Fiona'],

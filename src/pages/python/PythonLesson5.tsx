@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SqlLesson5 = () => {
+const PythonLesson5 = () => {
   return (
     <div>Lesson 5</div>
   )
 }
 
-export default SqlLesson5
+export default PythonLesson5

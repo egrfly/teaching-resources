@@ -1,30 +1,44 @@
+import PythonInstance from '../models/PythonInstance'
+import SqlInstance from '../models/SqlInstance'
+
 export const runSqlCode = (code: string,
-                           db: any,
-                           setError: (error: string | undefined) => void,
-                           setHeaderRow: (row: string[] | undefined) => void,
-                           setRows: (rows: string[][] | undefined) => void) => {
-  db.run('PRAGMA foreign_keys = ON;')
-  const commands = code.split(';').filter(command => command.trim())
+                           sql: SqlInstance,
+                           setError: (error: string | undefined) => void) => {
+  setError("")
+  sql.clearOutput()
+  sql.db.run("PRAGMA foreign_keys = ON;")
+  const commands = code.split(';').filter((command) => command.trim())
+  if (commands.length === 0) {
+    commands.push("")
+  }
   for (const command of commands) {
-    const resultHeaderRow: string[] = []
-    const resultRows: string[][] = []
+    sql.headerRow = []
+    sql.dataRows = []
     try {
-      const statement = db.prepare(command);
+      const statement = sql.db.prepare(command);
       while (statement.step()) {
-        if (resultHeaderRow.length === 0) {
-          resultHeaderRow.push(...statement.getColumnNames())
+        if (sql.headerRow.length === 0) {
+          sql.headerRow.push(...statement.getColumnNames())
         }
-        const row = statement.get()
-        resultRows.push(row)
+        sql.dataRows.push(statement.get())
       }
-      setError("")
-      setHeaderRow(resultHeaderRow)
-      setRows(resultRows)
-    } catch (e) {
-      setError(String(e))
-      setHeaderRow(undefined)
-      setRows(undefined)
+    } catch (error) {
+      setError(String(error))
+      sql.clearOutput()
       break
     }
+  }
+}
+
+export const runPythonCode = (code: string,
+                              python: PythonInstance,
+                              setError: (error: string | undefined) => void) => {
+  setError("")
+  python.clearOutput()
+  try {
+    python.pyodide?.runPython(code)
+  } catch (error) {
+    setError(String(error))
+    python.clearOutput()
   }
 }

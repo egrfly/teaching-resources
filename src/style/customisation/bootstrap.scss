@@ -1,3 +1,15 @@
+.btn {
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.card .card-text {
+  color: $gray-400;
+}
+
 .tooltip-primary {
   &.show {
     opacity: 1;

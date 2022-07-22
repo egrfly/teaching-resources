@@ -1,14 +1,13 @@
 @import './variables.scss';
 @import '~bootstrap/scss/bootstrap.scss';
 
-@import './bootstrap-customisation.scss';
-@import './codemirror-customisation.scss';
+@import './code-output.scss';
+@import './customisation/bootstrap.scss';
+@import './customisation/codemirror.scss';
+@import './customisation/reveal.scss';
+@import './customisation/vscode-dark.scss';
 @import './js-lessons.scss';
 @import './loader.scss';
-@import './resource-pages.scss';
-@import './result-set-table.scss';
-@import './reveal-customisation.scss';
-@import './vscode-dark.scss';
 
 html, body, #root {
   height: 100%;
@@ -16,14 +15,6 @@ html, body, #root {
   -webkit-user-select: none;
   user-select: none;
   cursor: default;
-}
-
-.btn {
-  transition: transform 0.2s;
-
-  &:active {
-    transform: scale(0.95);
-  }
 }
 
 [hidden] {

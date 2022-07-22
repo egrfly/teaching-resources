@@ -7,6 +7,11 @@ export const homeResources: Resource[] = [
     url: 'js',
   },
   {
+    title: 'Python Basics',
+    description: 'Learn how to write programs to take in, manipulate and output data',
+    url: 'python',
+  },
+  {
     title: 'SQL Basics',
     description: 'Learn how to write queries to select, insert, update and delete data',
     url: 'sql',
@@ -59,6 +64,39 @@ export const jsLesson2Resources: Resource[] = [
     title: 'JavaScript file code',
     description: 'Code specially arranged for the JavaScript file being linked into the booking page HTML',
     url: 'js-file-code',
+  },
+]
+
+export const pythonResources: Resource[] = [
+  {
+    title: 'Lesson 1',
+    description: 'Learn about variables, data types and the print and input functions',
+    url: 'lesson-1',
+  },
+  {
+    title: 'Lesson 2',
+    description: 'Learn how use built-in functions and methods, and how to write your own',
+    url: 'lesson-2',
+  },
+  {
+    title: 'Lesson 3',
+    description: 'Learn how to use conditional statements and loops',
+    url: 'lesson-3',
+  },
+  {
+    title: 'Lesson 4',
+    description: 'Learn how to use lists, dictionaries, tuples and sets',
+    url: 'lesson-4',
+  },
+  {
+    title: 'Lesson 5',
+    description: 'Learn how to work with files and perform basic data analysis',
+    url: 'lesson-5',
+  },
+  {
+    title: 'Lesson 6',
+    description: 'Learn about Python package management and how to interact with APIs',
+    url: 'lesson-6',
   },
 ]
 

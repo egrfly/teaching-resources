@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CodeFullPageTextArea from './CodeFullPageTextArea'
+import CodeFullPageTextArea from './CodeTextArea/CodeFullPageTextArea'
 import Loader from './Loader'
 import NavBar from './NavBar'
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import CodeMirror from 'codemirror'
 import { Tooltip } from 'bootstrap'
-import { LanguageContext } from './Presentation'
+import { LanguageContext } from '../Presentation'
 
 interface CodeFullPageTextAreaProps {
   code: string,
